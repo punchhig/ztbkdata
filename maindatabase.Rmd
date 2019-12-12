@@ -1,0 +1,113 @@
+---
+title: "maindatabase"
+author: "Gopika Punchhi"
+date: "12/11/2019"
+output: html_document
+---
+
+This document only contain code for demographic variables as listed in the redcap dictionary. It is unlikely that you will use this document alone without any additional variables. 
+
+Before running this document, change x=read.csv("LOCATION OF FILE TO READ IN", ......)
+At the bottom of the document, change write.csv to the appropriate document name and location to save the new csv file for upload to REDCap
+
+in the excel sheet, you need to assign the case designation variable to active tb once you have converted to the new csv file using the code below
+```{r institute, include=FALSE}
+library(plyr)
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/STCV/CT_TST_REAC.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+##Insitute variable renaming
+##need to write this in based on what you see in the document
+x$institute[x$institute=="LTCV"]<-1
+x$institute[x$institute=="LowerTCV"]<-1
+x$institute[x$institute=="GTCV"]<-3
+x$institute[x$institute=="TCV GOPUR"]<-3
+x$institute[x$institute=="LTCV"]<-1
+x$institute[x$institute=="LTCV"]<-1
+x$institute[x$institute=="STSP"]<-10
+x$institute[x$institute=="STCV"]<-4
+```
+
+```{r age}
+x$age[x$age=="NA"]<-""
+```
+
+```{r sex}
+x$sex[grepl("^m", x$sex, ignore.case = TRUE)]<-1
+x$sex[grepl("^f", x$sex, ignore.case = TRUE)]<-2
+x$class_section[x$class_section=="NA"]<-""
+```
+
+```{r main TB Dorm}
+x$dorm_[!grepl("^B|^H|^G",x$dorm,ignore.case=TRUE)] <- ""
+x$dorm[grepl("^H-",x$dorm,ignore.case=TRUE)] <- 1
+x$dorm[grepl("^G",x$dorm,ignore.case=TRUE)] <- 3
+x$dorm[grepl("^B",x$dorm,ignore.case=TRUE)] <- 2
+x$dorm[grepl("^sta", x$dorm, ignore.case = TRUE)]<-5
+x$dorm[grepl("^da", x$dorm, ignore.case = TRUE)]<-4
+x$dorm[grepl("^mgh", x$dorm, ignore.case=TRUE)]<-6
+x$dorm[grepl("^ygh", x$dorm, ignore.case=TRUE)]<-7
+x$dorm[grepl("^sos", x$dorm, ignore.case=TRUE)]<-8
+x$dorm[grepl("^ygy", x$dorm, ignore.case=TRUE)]<-10
+x$dorm[grepl("^d/s", x$dorm, ignore.case=TRUE)]<-11
+x$dorm[grepl("^s/c", x$dorm, ignore.case=TRUE)]<-12
+x$dorm[grepl("^lgy", x$dorm, ignore.case=TRUE)]<-13
+x$dorm[grepl("^sam", x$dorm, ignore.case=TRUE)]<-14
+x$dorm[x$dorm==""]<-9
+x$dorm[x$dorm=="NA"]<-99
+
+
+x$enroll_date[x$enroll_date=="NA"]<-""
+
+```
+
+```{r occuapation}
+x$occupation[x$occupation=="STUDENT"]<-1
+x$occupation[x$occupation=="TEACHER"]<-2
+x$occupation[x$occupation=="HEALTH-STAFF"]<-3
+x$occupation[x$occupation=="HEALTH STAFF"]<-3
+x$occupation[x$occupation=="OFFICE-STAFF"]<-4
+x$occupation[x$occupation=="OFFICE STAFF"]<-4
+x$occupation[x$occupation=="HOME-MOTHER"]<-5
+x$occupation[x$occupation=="HOME MOTHER"]<-5
+x$occupation[x$occupation=="MONK"]<-6
+x$occupation[x$occupation=="NUN"]<-7
+x$occupation[x$occupation=="COOK"]<-8
+x$occupation[x$occupation=="DRIVER"]<-9
+x$occupation[x$occupation=="HOME-FATHER"]<-10
+x$occupation[x$occupation=="HOME FATHER"]<-10
+x$occupation[x$occupation=="STAFF"]<-11
+x$occupation[x$occupation=="OTHER"]<-11
+x$occupation[x$occupation=="OTHER STAFF"]<-11
+```
+
+```{r Country}
+x$birth_place[!grepl('^IND|^TIB|^NEP|^BHU|', x$birth_place,ignore.case=TRUE)] <- 5
+x$birth_place[x$birth_place=="INDIA"]<-1
+x$birth_place[x$birth_place=="TIBET"]<-2
+x$birth_place[x$birth_place=="NEPAL"]<-3
+x$birth_place[x$birth_place=="BHUTAN"]<-4
+x$birth_place[x$birth_place=="USA"]<-5
+x$birth_place[x$birth_place=="CANADA"]<-6
+
+
+x$arrivalyear_fromtibet[x$arrivalyear_fromtibet=="NA"]<-""
+
+
+
+x$ethnicity[x$ethnicity=="NA"]<-""
+```
+
+
+```{r run}
+x$address_settlement_city[x$address_settlement_city=="NA"]<-""
+
+x$weight_kg[x$weight_kg=="NA"]<-""
+```
+
+
+```{r export}
+write.csv(x,"C:/Users/g_pun/Dropbox/ZeroTB/STCV/CONTACT_TRACE_clean.csv", na="")
+```

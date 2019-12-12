@@ -1,0 +1,507 @@
+---
+title: "maindatabasetbinvestigation"
+author: "Gopika Punchhi"
+date: "12/11/2019"
+output: html_document
+---
+
+This document only contains code for the tabs that are not contact trace, reactiv, or active tb (main database tabs)
+
+Before running this document, change x=read.csv("LOCATION OF FILE TO READ IN", ......)
+At the bottom of the document, change write.csv to the appropriate document name and location to save the new csv file for upload to REDCap
+
+in the excel sheet, you need to assign the case designation variable to main databased investigation once you have converted to the new csv file using the code below
+```{r institute, include=FALSE}
+library(plyr)
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/STCV/CT_TST_REAC.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+##Insitute variable renaming
+##need to write this in based on what you see in the document
+x$institute[x$institute=="LTCV"]<-1
+x$institute[x$institute=="LowerTCV"]<-1
+x$institute[x$institute=="GTCV"]<-3
+x$institute[x$institute=="TCV GOPUR"]<-3
+x$institute[x$institute=="LTCV"]<-1
+x$institute[x$institute=="LTCV"]<-1
+x$institute[x$institute=="STSP"]<-10
+x$institute[x$institute=="STCV"]<-4
+```
+
+```{r age}
+x$age[x$age=="NA"]<-""
+```
+
+```{r sex}
+x$sex[grepl("^m", x$sex, ignore.case = TRUE)]<-1
+x$sex[grepl("^f", x$sex, ignore.case = TRUE)]<-2
+x$class_section[x$class_section=="NA"]<-""
+```
+
+```{r main TB Dorm}
+x$dorm_[!grepl("^B|^H|^G",x$dorm,ignore.case=TRUE)] <- ""
+x$dorm[grepl("^H-",x$dorm,ignore.case=TRUE)] <- 1
+x$dorm[grepl("^G",x$dorm,ignore.case=TRUE)] <- 3
+x$dorm[grepl("^B",x$dorm,ignore.case=TRUE)] <- 2
+x$dorm[grepl("^sta", x$dorm, ignore.case = TRUE)]<-5
+x$dorm[grepl("^da", x$dorm, ignore.case = TRUE)]<-4
+x$dorm[grepl("^mgh", x$dorm, ignore.case=TRUE)]<-6
+x$dorm[grepl("^ygh", x$dorm, ignore.case=TRUE)]<-7
+x$dorm[grepl("^sos", x$dorm, ignore.case=TRUE)]<-8
+x$dorm[grepl("^ygy", x$dorm, ignore.case=TRUE)]<-10
+x$dorm[grepl("^d/s", x$dorm, ignore.case=TRUE)]<-11
+x$dorm[grepl("^s/c", x$dorm, ignore.case=TRUE)]<-12
+x$dorm[grepl("^lgy", x$dorm, ignore.case=TRUE)]<-13
+x$dorm[grepl("^sam", x$dorm, ignore.case=TRUE)]<-14
+x$dorm[x$dorm==""]<-9
+x$dorm[x$dorm=="NA"]<-99
+
+
+x$enroll_date[x$enroll_date=="NA"]<-""
+
+```
+
+```{r occuapation}
+x$occupation[x$occupation=="STUDENT"]<-1
+x$occupation[x$occupation=="TEACHER"]<-2
+x$occupation[x$occupation=="HEALTH-STAFF"]<-3
+x$occupation[x$occupation=="HEALTH STAFF"]<-3
+x$occupation[x$occupation=="OFFICE-STAFF"]<-4
+x$occupation[x$occupation=="OFFICE STAFF"]<-4
+x$occupation[x$occupation=="HOME-MOTHER"]<-5
+x$occupation[x$occupation=="HOME MOTHER"]<-5
+x$occupation[x$occupation=="MONK"]<-6
+x$occupation[x$occupation=="NUN"]<-7
+x$occupation[x$occupation=="COOK"]<-8
+x$occupation[x$occupation=="DRIVER"]<-9
+x$occupation[x$occupation=="HOME-FATHER"]<-10
+x$occupation[x$occupation=="HOME FATHER"]<-10
+x$occupation[x$occupation=="STAFF"]<-11
+x$occupation[x$occupation=="OTHER"]<-11
+x$occupation[x$occupation=="OTHER STAFF"]<-11
+```
+
+```{r Country}
+x$birth_place[!grepl('^IND|^TIB|^NEP|^BHU|', x$birth_place,ignore.case=TRUE)] <- 5
+x$birth_place[x$birth_place=="INDIA"]<-1
+x$birth_place[x$birth_place=="TIBET"]<-2
+x$birth_place[x$birth_place=="NEPAL"]<-3
+x$birth_place[x$birth_place=="BHUTAN"]<-4
+x$birth_place[x$birth_place=="USA"]<-5
+x$birth_place[x$birth_place=="CANADA"]<-6
+
+
+x$arrivalyear_fromtibet[x$arrivalyear_fromtibet=="NA"]<-""
+
+
+
+x$ethnicity[x$ethnicity=="NA"]<-""
+```
+
+
+```{r run}
+x$address_settlement_city[x$address_settlement_city=="NA"]<-""
+
+
+
+x$weight_kg[x$weight_kg=="NA"]<-""
+```
+
+############################################################
+ALL CODE ABOVE MUST BE RUN FOR EACH SHEET
+############################################################
+
+
+
+
+MAIN DATABASE tb INVESTIGATION CODE
+```{r prev tb}
+x$prev_tb[x$prev_tb=="NO"]<-0
+x$prev_tb[x$prev_tb=="YES"]<-1
+x$prev_tb[x$prev_tb=="UNKNOWN"]<-9
+x$prev_tb[x$prev_tb=="NA"]<-99
+```
+
+```{r year of previous TB}
+x$prevtb_year[x$prevtb_year=="NA"]<-99
+x$prevtb_year[x$prevtb_year=="UNKNOWN"]<-9
+```
+
+
+```{r prev tb type}
+x$prevtb_type[x$prevtb_type=="NON MDR"]<-0
+x$prevtb_type[grepl("^no",x$prevtb_type, ignore.case = TRUE)]<-0
+x$prevtb_type[x$prevtb_type=="MDR"]<-1
+x$prevtb_type[grepl("^md",x$prevtb_type, ignore.case = TRUE)]<-1
+x$prevtb_type[x$prevtb_type=="NA"]<-99
+x$prevtb_type[x$prevtb_type=="UNKNOWN"]<-9
+
+x$prevtb_site[x$prevtb_site=="UNKNOWN"]<-9
+x$prevtb_site[x$prevtb_site=="NA"]<-99
+```
+
+
+
+```{r seizures}
+x$seizures[x$seizures=="NO"]<-0
+x$seizures[x$seizures=="no"]<-0
+x$seizures[x$seizures=="YES"]<-1
+x$seizures[x$seizures=="yes"]<-1
+x$seizures[x$seizures=="UNKNOWN"]<-9
+x$seizures[x$seizures=="NA"]<-99
+```
+
+```{r hepb}
+x$hepb[x$hepb=="NO"]<-0
+x$hepb[x$hepb=="YES"]<-1
+x$hepb[x$hepb=="no"]<-0
+x$hepb[x$hepb=="yes"]<-1
+```
+
+```{r preg_breastfeed}
+x$preg_breastfeed[x$preg_breastfeed=="NO"]<-0
+x$preg_breastfeed[x$preg_breastfeed=="PREG"]<-1
+x$preg_breastfeed[grepl("^bre", x$preg_breastfeed, ignore.case = TRUE)]<-2
+x$preg_breastfeed[x$preg_breastfeed=="BREASTFEED"]<-2
+x$preg_breastfeed[x$preg_breastfeed=="UNKNOWN"]<-9
+x$preg_breastfeed[x$preg_breastfeed=="NA"]<-99
+```
+
+```{r other comorbid}
+x$other_cormorbid[grepl("^no", x$other_cormorbid, ignore.case = TRUE)]<-0
+x$other_cormorbid[x$other_cormorbid=="DM"]<-1
+x$other_cormorbid[x$other_cormorbid=="HTN"]<-2
+x$other_cormorbid[x$other_cormorbid=="DM_HTN"]<-3
+x$other_cormorbid[grepl("^o", x$other_cormorbid, ignore.case = TRUE)]<-4
+x$other_cormorbid[x$other_cormorbid=="UNKNOWN"]<-9
+x$other_cormorbid[x$other_cormorbid=="NA"]<-99
+```
+
+```{r longterm med}
+x$longterm_med[x$longterm_med=="NONE"]<-0
+x$longterm_med[x$longterm_med=="NO"]<-0
+x$longterm_med[x$longterm_med=="ANTI-HEPB"]<-1
+x$longterm_med[x$longterm_med=="ANTI HEPB"]<-1
+x$longterm_med[x$longterm_med=="ANTI_SEIZURE"]<-2
+x$longterm_med[x$longterm_med=="ANTI-SEIZURE"]<-2
+x$longterm_med[x$longterm_med=="ANTI SEIZURE"]<-2
+x$longterm_med[x$longterm_med=="ANTI_DM"]<-3
+x$longterm_med[x$longterm_med=="ANTI-HTN"]<-4
+x$longterm_med[x$longterm_med=="ANTI-DMHTN"]<-5
+x$longterm_med[x$longterm_med=="ANTI-HEPBDM"]<-6
+x$longterm_med[x$longterm_med=="ANTI-HEPHTN"]<-7
+x$longterm_med[x$longterm_med=="ANTI-HEPBSEIZURE"]<-8
+x$longterm_med[x$longterm_med=="ANTI-SEIZUREDM"]<-9
+x$longterm_med[x$longterm_med=="ANTI_SEIZUREHTN"]<-10
+x$longterm_med[x$longterm_med=="OTHER"]<-11
+```
+
+```{r eversmoked}
+x$ever_smoked[x$ever_smoked=="NO"]<-0
+x$ever_smoked[x$ever_smoked=="YES"]<-1
+x$ever_smoked[x$ever_smoked=="UNKNOWN"]<-9
+x$ever_smoked[x$ever_smoked=="NA"]<-99
+```
+
+```{r bcg tibetborn}
+x$bcg_tibetborn[x$bcg_tibetborn=="NO"]<-0
+x$bcg_tibetborn[x$bcg_tibetborn=="YES"]<-1
+x$bcg_tibetborn[x$bcg_tibetborn=="UNKNOWN"]<-9
+x$bcg_tibetborn[x$bcg_tibetborn=="NA"]<-99
+```
+
+```{r contact with TB in last two years}
+x$contactsch_2yr[x$contactsch_2yr=="NO"]<-0
+x$contactsch_2yr[x$contactsch_2yr=="YES"]<-1
+x$contactsch_2yr[x$contactsch_2yr=="UNKNOWN"]<-9
+x$contactsch_2yr[x$contactsch_2yr=="NA"]<-99
+```
+
+```{r drug sensitivity of Tb case at school}
+x$indexcasesch_tbtype[x$indexcasesch_tbtype=="NON MDR"]<-0
+x$indexcasesch_tbtype[x$indexcasesch_tbtype=="MDR"]<-1
+x$indexcasesch_tbtype[x$indexcasesch_tbtype==""]<-""
+x$indexcasesch_tbtype[x$indexcasesch_tbtype=="UNKNOWN"]<-9
+x$indexcasesch_tbtype[x$indexcasesch_tbtype=="NA"]<-99
+```
+
+```{r index case at school}
+x$indexcasesch_is[x$indexcasesch_is=="CLASS MATE"]<-1
+x$indexcasesch_is[x$indexcasesch_is=="CLASS-MATE"]<-1
+x$indexcasesch_is[x$indexcasesch_is=="CLASSMATE"]<-1
+x$indexcasesch_is[x$indexcasesch_is=="DORM MATE"]<-2
+x$indexcasesch_is[x$indexcasesch_is=="DORMMATE"]<-2
+x$indexcasesch_is[x$indexcasesch_is=="DORM-MATE"]<-2
+x$indexcasesch_is[x$indexcasesch_is=="CLASSDORM MATE"]<-3
+x$indexcasesch_is[x$indexcasesch_is=="CLASS DORM MATE"]<-3
+x$indexcasesch_is[x$indexcasesch_is=="CLASS DORM-MATE"]<-3
+x$indexcasesch_is[x$indexcasesch_is=="SCHOOL STAFF"]<-4
+x$indexcasesch_is[x$indexcasesch_is=="SCHOOL-STAFF"]<-4
+x$indexcasesch_is[x$indexcasesch_is=="FRIEND"]<-5
+x$indexcasesch_is[x$indexcasesch_is=="OTHER"]<-6
+x$indexcasesch_is[x$indexcasesch_is=="NA"]<-99
+x$indexcasesch_count[x$indexcasesch_count=="0"]<-0
+x$indexcasesch_count[x$indexcasesch_count=="1"]<-1
+x$indexcasesch_count[x$indexcasesch_count=="2"]<-2
+x$indexcasesch_count[x$indexcasesch_count=="3"]<-3
+x$indexcasesch_count[x$indexcasesch_count=="4"]<-3
+x$indexcasesch_count[grepl("^>",x$indexcasesch_count, ignore.case=FALSE)]<-3
+x$indexcasesch_count[x$indexcasesch_count=="NA"]<-99
+```
+
+```{r exposed to TB athome}
+x$contacthome_2yr[x$contacthome_2yr=="NO"]<-0
+x$contacthome_2yr[x$contacthome_2yr=="YES"]<-1
+x$contacthome_2yr[x$contacthome_2yr=="UNKNOWN"]<-9
+```
+
+```{r drug sensitivity of the TB case at home}
+x$indexcasehome_tbtype[x$indexcasehome_tbtype=="NON MDR"]<-0
+x$indexcasehome_tbtype[x$indexcasehome_tbtype=="MDR"]<-1
+x$indexcasehome_tbtype[x$indexcasehome_tbtype=="UNKNOWN"]<-9
+x$indexcasehome_tbtype[x$indexcasehome_tbtype=="NA"]<-99
+```
+
+```{r index case at home}
+x$indexcasehome_is[x$indexcasehome_is=="PARENT"]<-1
+x$indexcasehome_is[x$indexcasehome_is=="SIBLING"]<-2
+x$indexcasehome_is[x$indexcasehome_is=="GRANDPARENT"]<-3
+x$indexcasehome_is[x$indexcasehome_is=="GRAND PARENT"]<-3
+x$indexcasehome_is[x$indexcasehome_is=="OTHER"]<-4
+x$indexcasehome_is[x$indexcasehome_is=="NA"]<-99
+```
+
+```{r indexcasehome_count}
+x$indexcasehome_count[x$indexcasehome_count=="0"]<-0
+x$indexcasehome_count[x$indexcasehome_count=="1"]<-1
+x$indexcasehome_count[x$indexcasehome_count=="2"]<-2
+x$indexcasehome_count[x$indexcasehome_count=="3"]<-3
+x$indexcasehome_count[x$indexcasehome_count=="4"]<-3
+x$indexcasehome_count[x$indexcasehome_count>="NA"]<-99
+#### CHECK THIS LAST LINE OF CODE
+```
+
+```{r presence of cough}
+x$cough[x$cough=="NO"]<-0
+x$cough[x$cough=="YES"]<-1
+```
+
+
+```{r cough duration in weeks}
+x$coughduration_wks[grepl("^l", x$coughduration_wks, ignore.case=TRUE)]<-1
+x$coughduration_wks[grepl("^o", x$coughduration_wks, ignore.case=TRUE)]<-2
+x$coughduration_wks[grepl("^t", x$coughduration_wks, ignore.case=TRUE)]<-3
+x$coughduration_wks[grepl("^g", x$coughduration_wks, ignore.case=TRUE)]<-4
+x$coughduration_wks[!grepl("^o|^t|^g", x$coughduration_wks, ignore.case=TRUE)]<-""
+x$coughduration_wks[x$coughduration_wks=="NA"]<-99
+```
+
+```{r patient cough productive}
+x$productive_cough[x$productive_cough=="NO"]<-0
+x$productive_cough[x$productive_cough=="YES"]<-1
+x$productive_cough[x$productive_cough=="NA"]<-99
+```
+
+```{r presence of blood in sputum}
+x$blood_sputum[x$blood_sputum=="NO"]<-0
+x$blood_sputum[x$blood_sputum=="YES"]<-1
+x$blood_sputum[x$blood_sputum=="NA"]<-99
+```
+
+```{r fever}
+x$fever[x$fever=="NO"]<-0
+x$fever[x$fever=="YES"]<-1
+```
+
+```{r fever duration}
+x$fever_duration[grepl("^l", x$fever_duration, ignore.case = TRUE)]<-1
+x$fever_duration[grepl("^o", x$fever_duration, ignore.case = TRUE)]<-2
+x$fever_duration[grepl("^g", x$fever_duration, ignore.case = TRUE)]<-3
+x$fever_duration[!grepl("^l|^o|^g", x$fever_duration, ignore.case = TRUE)]<-""
+x$fever_duration[x$fever_duration=="NA"]<-99
+```
+
+```{r presence of night sweats}
+x$nightsweats_2wks[x$nightsweats_2wks=="NO"]<-0
+x$nightsweats_2wks[x$nightsweats_2wks=="YES"]<-1
+```
+
+```{r weight loss in year prior}
+x$wtloss_1month[x$wtloss_1month=="NO"]<-0
+x$wtloss_1month[x$wtloss_1month=="YES"]<-1
+```
+
+```{r fatigue prior 2 weeks}
+x$fatigue_last2wks[x$fatigue_last2wks=="NO"]<-0
+x$fatigue_last2wks[x$fatigue_last2wks=="YES"]<-1
+```
+
+```{r ongoing chest pain}
+x$chestpain_current[x$chestpain_current=="NO"]<-0
+x$chestpain_current[x$chestpain_current=="YES"]<-1
+```
+
+
+```{r previous tst done}
+x$tst1_done[x$tst1_done=="YES"]<-1
+x$tst1_done[x$tst1_done=="PREV TB"]<-2
+x$tst1_done[x$tst1_done=="PREVTB"]<-2
+x$tst1_done[grepl("^pr", x$tst1_done, ignore.case=TRUE)]<-2
+x$tst1_done[x$tst1_done=="NOT INDICATED"]<-3
+x$tst1_done[x$tst1_done=="NOTINDICATED"]<-3
+x$tst1_done[x$tst1_done=="NA"]<-99
+x$tst1_done[x$tst1_done=="REFUSED"]<-4
+x$tst1_date[x$tst1_date=="NA"]<-""
+```
+
+```{r main}
+x$tst1_result[x$tst1_result=="NEGATIVE"]<-0
+x$tst1_result[x$tst1_result=="POSITIVE"]<-1
+x$tst1_result[x$tst1_result=="NOT DONE"]<-2
+x$tst1_result[x$tst1_result=="UNKNOWN"]<-9
+
+x$tst1_date_read[x$tst1_date_read=="NA"]<-""
+
+x$tst1_adr[x$tst1_adr=="NONE"]<-0
+x$tst1_adr[x$tst1_adr=="NO"]<-0
+x$tst1_adr[x$tst1_adr=="YES"]<-1
+x$tst1_adr[x$tst1_adr=="NOT DETECTED"]<-0
+x$tst1_adr[x$tst1_adr=="DETECTED"]<-1
+```
+
+
+```{r wheal size}
+x$wheal1_size[x$wheal1_size=="NA"]<-""
+```
+
+```{r date}
+x$xpert1_date[x$xpert1_date=="NA"]<-""
+```
+
+```{r type of specimen xpert}
+x$xpert1_specimen[x$xpert1_specimen=="SPUTUM"]<-1
+x$xpert1_specimen[x$xpert1_specimen=="GA"]<-2
+x$xpert1_specimen[grepl("^GA", x$xpert1_specimen, ignore.case = FALSE)]<-2
+x$xpert1_specimen[x$xpert1_specimen=="PUS"]<-3
+x$xpert1_specimen[x$xpert1_specimen=="PLEURAL FLUID"]<-4
+x$xpert1_specimen[x$xpert1_specimen=="URINE"]<-5
+x$xpert1_specimen[x$xpert1_specimen=="CSF"]<-6
+x$xpert1_specimen[x$xpert1_specimen=="NA"]<-99
+```
+
+```{r result of xpert analysis}
+x$xpert1_result[x$xpert1_result=="NOT DETECTED"]<-0
+x$xpert1_result[x$xpert1_result=="NEGATIVE"]<-0
+x$xpert1_result[x$xpert1_result=="DETECTED"]<-1
+x$xpert1_result[x$xpert1_result=="POSITIVE"]<-1
+x$xpert1_result[x$xpert1_result=="NA"]<-99
+```
+
+```{r drug sensitivty as per xpert analysis}
+x$xpert1_mtb[x$xpert1_mtb=="VL"]<-0
+x$xpert1_mtb[x$xpert1_mtb=="LOW"]<-1
+x$xpert1_mtb[x$xpert1_mtb=="MED"]<-2
+x$xpert1_mtb[x$xpert1_mtb=="HIGH"]<-3
+x$xpert1_mtb[x$xpert1_mtb=="NA"]<-99
+```
+
+```{r rifampin resistance}
+x$xpert1_rif[x$xpert1_rif=="SEN"]<-0
+x$xpert1_rif[grepl("^s", x$xpert1_rif, ignore.case = TRUE)]<-0
+x$xpert1_rif[x$xpert1_rif=="SENSITIVE"]<-0
+x$xpert1_rif[x$xpert1_rif=="RES"]<-1
+x$xpert1_rif[grepl("^r", x$xpert1_rif, ignore.case = TRUE)]<-1
+x$xpert1_rif[x$xpert1_rif=="INDET"]<-2
+x$xpert1_rif[grepl("^i", x$xpert1_rif, ignore.case = TRUE)]<-2
+x$xpert1_rif[x$xpert1_rif=="NA"]<-99
+```
+
+```{r xpert2 date}
+x$xpert2_date[x$xpert2_date=="NA"]<-""
+```
+
+```{r type of spec use for 2nd xpert}
+x$xpert2_specimen[x$xpert2_specimen=="SPUTUM"]<-1
+x$xpert2_specimen[x$xpert2_specimen=="GA"]<-2
+x$xpert2_specimen[x$xpert2_specimen=="PUS"]<-3
+x$xpert2_specimen[x$xpert2_specimen=="PLEURAL FLUID"]<-4
+x$xpert2_specimen[x$xpert2_specimen=="URINE"]<-5
+x$xpert2_specimen[x$xpert2_specimen=="CSF"]<-6
+x$xpert2_specimen[x$xpert2_specimen=="NA"]<-99
+x$xpert2_specimen[x$xpert2_specimen=="YES"]<-7
+```
+
+```{r result of xpert2}
+x$xpert2_result[x$xpert2_result=="NOT DETECTED"]<-0
+x$xpert2_result[x$xpert2_result=="NEGATIVE"]<-0
+x$xpert2_result[x$xpert2_result=="DETECTED"]<-1
+x$xpert2_result[x$xpert2_result=="POSITIVE"]<-1
+x$xpert2_result[x$xpert2_result=="NA"]<-99
+x$xpert2_result[x$xpert2_result=="ABNORMAL"]<-2
+x$xpert2_result[x$xpert2_result=="NORMAL"]<-3
+```
+
+
+```{r drug sensitivty as per xpert2 analysis}
+x$xpert2_mtb[x$xpert2_mtb=="VL"]<-0
+x$xpert2_mtb[x$xpert2_mtb=="LOW"]<-1
+x$xpert2_mtb[x$xpert2_mtb=="MED"]<-2
+x$xpert2_mtb[x$xpert2_mtb=="HIGH"]<-3
+x$xpert2_mtb[x$xpert2_mtb=="NA"]<-99
+```
+
+```{r rifampin resistance 2}
+x$xpert2_rif[x$xpert2_rif=="SEN"]<-0
+x$xpert2_rif[grepl("^s", x$xpert2_rif, ignore.case = TRUE)]<-0
+x$xpert2_rif[x$xpert2_rif=="SENSITIVE"]<-0
+x$xpert2_rif[x$xpert2_rif=="RES"]<-1
+x$xpert2_rif[grepl("^r", x$xpert2_rif, ignore.case = TRUE)]<-1
+x$xpert2_rif[x$xpert2_rif=="INDET"]<-2
+x$xpert2_rif[grepl("^i", x$xpert2_rif, ignore.case = TRUE)]<-2
+x$xpert2_rif[x$xpert2_rif=="NA"]<-99
+```
+
+```{r cxr}
+x$cxr[x$cxr=="NA"]<-99
+x$cxr[x$cxr=="YES"]<-1
+x$cxr[x$cxr=="NO"]<-0
+```
+
+```{r cxr result}
+x$cxr_result[x$cxr_result=="NORMAL"]<-0
+x$cxr_result[x$cxr_result=="ABNORMAL"]<-1
+x$cxr_result[x$cxr_result=="NA"]<-99
+```
+
+```{r diagnosed with active TB}
+x$tb_diagnosed[x$tb_diagnosed=="NO"]<-0
+x$tb_diagnosed[x$tb_diagnosed=="YES"]<-1
+x$tb_diagnosed[x$tb_diagnosed=="NA"]<-99
+```
+
+```{r total num of students}
+x$total_students[x$total_students=="NA"]<-""
+x$total_staff[x$total_staff=="NA"]<-""
+```
+
+```{r total staff}
+x$total_monks_nuns[x$total_monks_nuns=="NA"]<-""
+```
+
+```{r notes main}
+x$notes_main[x$notes_main=="NA"]<-""
+x$notes[x$notes=="NA"]<-""
+```
+
+```{r complete}
+x$main_database_demographics_complete<-2
+x$main_database_tbinvestigation_complete<-2
+x$active_tb_tbinvestigation_complete<-2
+x$tst_reactive_treatment_complete<-2
+```
+
+```{r export}
+write.csv(x,"C:/Users/g_pun/Dropbox/ZeroTB/STCV/CONTACT_TRACE_clean.csv", na="")
+```
