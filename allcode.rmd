@@ -39,12 +39,14 @@ x$class_section[x$class_section=="NA"]<-""
 
 ```{r main TB Dorm}
 x$dorm_[!grepl("^b|^h|^g|^s|^d",x$dorm,ignore.case=TRUE)] <-""
+x$dorm[grepl("^k",x$dorm,ignore.case=TRUE)] <-""
 x$dorm[grepl("^H-",x$dorm,ignore.case=TRUE)] <- 1
 x$dorm[grepl("^H",x$dorm,ignore.case=TRUE)] <- 1
 x$dorm[grepl("^G",x$dorm,ignore.case=TRUE)] <- 3
 x$dorm[grepl("^B",x$dorm,ignore.case=TRUE)] <- 2
 x$dorm[grepl("^sta", x$dorm, ignore.case = TRUE)]<-5
 x$dorm[grepl("^da", x$dorm, ignore.case = TRUE)]<-4
+
 
 x$dorm[x$dorm==""]<-9
 x$dorm[x$dorm=="NA"]<-99
@@ -53,6 +55,7 @@ x$dorm[x$dorm=="NA"]<-99
 x$enroll_date[x$enroll_date=="NA"]<-""
 
 ```
+
 
 ```{r occupation}
 x$occupation[x$occupation=="STUDENT"]<-1
