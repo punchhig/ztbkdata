@@ -177,22 +177,23 @@ x$other_cormorbid[!grepl("[0-99]", x$other_cormorbid, ignore.case = TRUE)]<-99
 ```
 
 ```{r longterm med}
-x$longterm_med[x$longterm_med=="NONE"]<-0
-x$longterm_med[x$longterm_med=="NO"]<-0
-x$longterm_med[x$longterm_med=="ANTI-HEPB"]<-1
-x$longterm_med[x$longterm_med=="ANTI HEPB"]<-1
-x$longterm_med[x$longterm_med=="ANTI_SEIZURE"]<-2
-x$longterm_med[x$longterm_med=="ANTI-SEIZURE"]<-2
-x$longterm_med[x$longterm_med=="ANTI SEIZURE"]<-2
-x$longterm_med[x$longterm_med=="ANTI_DM"]<-3
-x$longterm_med[x$longterm_med=="ANTI-HTN"]<-4
-x$longterm_med[x$longterm_med=="ANTI-DMHTN"]<-5
-x$longterm_med[x$longterm_med=="ANTI-HEPBDM"]<-6
-x$longterm_med[x$longterm_med=="ANTI-HEPHTN"]<-7
-x$longterm_med[x$longterm_med=="ANTI-HEPBSEIZURE"]<-8
-x$longterm_med[x$longterm_med=="ANTI-SEIZUREDM"]<-9
-x$longterm_med[x$longterm_med=="ANTI_SEIZUREHTN"]<-10
-x$longterm_med[x$longterm_med=="OTHER"]<-11
+x$longterm_med[grepl("^no",x$longterm_med,ignore.case=TRUE)] <-0
+x$longterm_med[grepl("^dia",x$longterm_med,ignore.case=TRUE)] <-3
+x$longterm_med[grepl("^hyper",x$longterm_med,ignore.case=TRUE)] <-4
+x$longterm_med[grepl("^tenovir",x$longterm_med,ignore.case=TRUE)] <-1
+x$longterm_med[grepl("dmhtn",x$longterm_med,ignore.case=TRUE)] <- 5
+x$longterm_med[grepl("hepbdm",x$longterm_med,ignore.case=TRUE)] <- 6
+x$longterm_med[grepl("hephtn",x$longterm_med,ignore.case=TRUE)] <- 7
+x$longterm_med[grepl("hepbsei",x$longterm_med,ignore.case=TRUE)] <- 8
+x$longterm_med[grepl("seizuredm",x$longterm_med,ignore.case=TRUE)] <- 9
+x$longterm_med[grepl("seizurehtn",x$longterm_med,ignore.case=TRUE)] <- 10
+x$longterm_med[grepl("hep",x$longterm_med,ignore.case=TRUE)] <- 1
+x$longterm_med[grepl("seiz",x$longterm_med,ignore.case=TRUE)] <- 2
+x$longterm_med[grepl("dm",x$longterm_med,ignore.case=TRUE)] <- 3
+x$longterm_med[grepl("other",x$longterm_med,ignore.case=TRUE)] <- 11
+x$longterm_med[x$longterm_med==""]<-999
+x$longterm_med[grepl("^na",x$longterm_med,ignore.case=TRUE)] <- 99
+x$longterm_med[!grepl("[0-99]", x$longterm_med, ignore.case = TRUE)]<-99
 ```
 
 ```{r eversmoked}
