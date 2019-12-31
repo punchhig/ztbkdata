@@ -197,32 +197,32 @@ x$longterm_med[!grepl("[0-99]", x$longterm_med, ignore.case = TRUE)]<-99
 ```
 
 ```{r eversmoked}
-x$ever_smoked[x$ever_smoked=="NO"]<-0
-x$ever_smoked[x$ever_smoked=="YES"]<-1
-x$ever_smoked[x$ever_smoked=="UNKNOWN"]<-9
-x$ever_smoked[x$ever_smoked=="NA"]<-99
+x$ever_smoked[grepl("^no",x$ever_smoked,ignore.case=TRUE)] <- 0
+x$ever_smoked[grepl("^yes",x$ever_smoked,ignore.case=TRUE)] <- 1
+x$ever_smoked[x$ever_smoked==""]<-9
+x$ever_smoked[grepl("^na",x$ever_smoked,ignore.case=TRUE)] <- 99
 ```
 
 ```{r bcg tibetborn}
-x$bcg_tibetborn[x$bcg_tibetborn=="NO"]<-0
-x$bcg_tibetborn[x$bcg_tibetborn=="YES"]<-1
-x$bcg_tibetborn[x$bcg_tibetborn=="UNKNOWN"]<-9
-x$bcg_tibetborn[x$bcg_tibetborn=="NA"]<-99
+x$bcg_tibetborn[grepl("^no",x$bcg_tibetborn, ignore.case=TRUE)] <- 0
+x$bcg_tibetborn[grepl("^yes",x$bcg_tibetborn,ignore.case=TRUE)] <- 1
+x$bcg_tibetborn[x$bcg_tibetborn==""]<-9
+x$bcg_tibetborn[grepl("^na",x$bcg_tibetborn,ignore.case=TRUE)] <- 99
 ```
 
 ```{r contact with TB in last two years}
-x$contactsch_2yr[x$contactsch_2yr=="NO"]<-0
-x$contactsch_2yr[x$contactsch_2yr=="YES"]<-1
-x$contactsch_2yr[x$contactsch_2yr=="UNKNOWN"]<-9
-x$contactsch_2yr[x$contactsch_2yr=="NA"]<-99
+x$contactsch_2yr[grepl("^no",x$contactsch_2yr, ignore.case=TRUE)] <- 0
+x$contactsch_2yr[grepl("^yes",x$contactsch_2yr,ignore.case=TRUE)] <- 1
+x$contactsch_2yr[x$contactsch_2yr==""]<-9
+x$contactsch_2yr[grepl("^na",x$contactsch_2yr,ignore.case=TRUE)] <- 99
 ```
 
 ```{r drug sensitivity of Tb case at school}
-x$indexcasesch_tbtype[x$indexcasesch_tbtype=="NON MDR"]<-0
-x$indexcasesch_tbtype[x$indexcasesch_tbtype=="MDR"]<-1
-x$indexcasesch_tbtype[x$indexcasesch_tbtype==""]<-""
-x$indexcasesch_tbtype[x$indexcasesch_tbtype=="UNKNOWN"]<-9
-x$indexcasesch_tbtype[x$indexcasesch_tbtype=="NA"]<-99
+x$indexcasesch_tbtype[grepl("^non",x$indexcasesch_tbtype, ignore.case=TRUE)] <- 0
+x$indexcasesch_tbtype[grepl("^mdr",x$indexcasesch_tbtype,ignore.case=TRUE)] <- 1
+x$indexcasesch_tbtype[grepl("^unk",x$indexcasesch_tbtype,ignore.case=TRUE)] <- 9
+x$indexcasesch_tbtype[x$indexcasesch_tbtype==""]<-9
+x$indexcasesch_tbtype[grepl("^na",x$indexcasesch_tbtype,ignore.case=TRUE)] <- 99
 ```
 
 ```{r index case at school}
@@ -247,19 +247,22 @@ x$indexcasesch_count[x$indexcasesch_count=="3"]<-3
 x$indexcasesch_count[x$indexcasesch_count=="4"]<-3
 x$indexcasesch_count[grepl("^>",x$indexcasesch_count, ignore.case=FALSE)]<-3
 x$indexcasesch_count[x$indexcasesch_count=="NA"]<-99
+x$indexcasesch_count[x$indexcasesch_count==""]<-9
 ```
 
 ```{r exposed to TB athome}
-x$contacthome_2yr[x$contacthome_2yr=="NO"]<-0
-x$contacthome_2yr[x$contacthome_2yr=="YES"]<-1
-x$contacthome_2yr[x$contacthome_2yr=="UNKNOWN"]<-9
+x$contacthome_2yr[grepl("^no",x$contacthome_2yr, ignore.case=TRUE)] <- 0
+x$contacthome_2yr[grepl("^yes",x$contacthome_2yr,ignore.case=TRUE)] <- 1
+x$contacthome_2yr[x$contacthome_2yr==""]<-9
+x$contacthome_2yr[grepl("^na",x$contacthome_2yr,ignore.case=TRUE)] <- 99
 ```
 
 ```{r drug sensitivity of the TB case at home}
-x$indexcasehome_tbtype[x$indexcasehome_tbtype=="NON MDR"]<-0
-x$indexcasehome_tbtype[x$indexcasehome_tbtype=="MDR"]<-1
-x$indexcasehome_tbtype[x$indexcasehome_tbtype=="UNKNOWN"]<-9
-x$indexcasehome_tbtype[x$indexcasehome_tbtype=="NA"]<-99
+x$indexcasehome_tbtype[grepl("^non",x$indexcasehome_tbtype, ignore.case=TRUE)] <- 0
+x$indexcasehome_tbtype[grepl("^mdr",x$indexcasehome_tbtype,ignore.case=TRUE)] <- 1
+x$indexcasehome_tbtype[grepl("^unk",x$indexcasehome_tbtype,ignore.case=TRUE)] <- 9
+x$indexcasehome_tbtype[x$indexcasehome_tbtype==""]<-9
+x$indexcasehome_tbtype[grepl("^na",x$indexcasehome_tbtype,ignore.case=TRUE)] <- 99
 ```
 
 ```{r index case at home}
@@ -268,79 +271,109 @@ x$indexcasehome_is[x$indexcasehome_is=="SIBLING"]<-2
 x$indexcasehome_is[x$indexcasehome_is=="GRANDPARENT"]<-3
 x$indexcasehome_is[x$indexcasehome_is=="GRAND PARENT"]<-3
 x$indexcasehome_is[x$indexcasehome_is=="OTHER"]<-4
+x$indexcasehome_is[x$indexcasehome_is==""]<-9
 x$indexcasehome_is[x$indexcasehome_is=="NA"]<-99
 ```
 
 ```{r indexcasehome_count}
 x$indexcasehome_count[x$indexcasehome_count=="0"]<-0
 x$indexcasehome_count[x$indexcasehome_count=="1"]<-1
+x$indexcasehome_count[x$indexcasehome_count==">1"]<-1
 x$indexcasehome_count[x$indexcasehome_count=="2"]<-2
 x$indexcasehome_count[x$indexcasehome_count=="3"]<-3
 x$indexcasehome_count[x$indexcasehome_count=="4"]<-3
+x$indexcasehome_count[x$indexcasehome_count==""]<-9
 x$indexcasehome_count[x$indexcasehome_count>="NA"]<-99
 #### CHECK THIS LAST LINE OF CODE
 ```
 
 ```{r presence of cough}
-x$cough[x$cough=="NO"]<-0
-x$cough[x$cough=="YES"]<-1
+x$cough[grepl("^no",x$cough, ignore.case=TRUE)] <- 0
+x$cough[grepl("^yes",x$cough,ignore.case=TRUE)] <- 1
+x$cough[x$cough==""]<-9
+x$cough[grepl("^na",x$cough,ignore.case=TRUE)] <- 99
 ```
 
 
 ```{r cough duration in weeks}
 x$coughduration_wks[grepl("^l", x$coughduration_wks, ignore.case=TRUE)]<-1
+x$coughduration_wks[grepl("^<1", x$coughduration_wks, ignore.case=TRUE)]<-1
 x$coughduration_wks[grepl("^o", x$coughduration_wks, ignore.case=TRUE)]<-2
+x$coughduration_wks[grepl("^1-", x$coughduration_wks, ignore.case=TRUE)]<-2
 x$coughduration_wks[grepl("^t", x$coughduration_wks, ignore.case=TRUE)]<-3
+x$coughduration_wks[grepl("^2-", x$coughduration_wks, ignore.case=TRUE)]<-3
 x$coughduration_wks[grepl("^g", x$coughduration_wks, ignore.case=TRUE)]<-4
-x$coughduration_wks[!grepl("^o|^t|^g", x$coughduration_wks, ignore.case=TRUE)]<-""
+x$coughduration_wks[grepl("^3-", x$coughduration_wks, ignore.case=TRUE)]<-4
+x$coughduration_wks[grepl("4", x$coughduration_wks, ignore.case=TRUE)]<-4
+x$coughduration_wks[grepl("^na", x$coughduration_wks, ignore.case=TRUE)]<-99
 x$coughduration_wks[x$coughduration_wks=="NA"]<-99
+x$coughduration_wks[!grepl("[0-99]", x$coughduration_wks, ignore.case=TRUE)]<- 9
 ```
 
 ```{r patient cough productive}
-x$productive_cough[x$productive_cough=="NO"]<-0
-x$productive_cough[x$productive_cough=="YES"]<-1
-x$productive_cough[x$productive_cough=="NA"]<-99
+x$productive_cough[grepl("^no",x$productive_cough, ignore.case=TRUE)] <- 0
+x$productive_cough[grepl("^yes",x$productive_cough,ignore.case=TRUE)] <- 1
+x$productive_cough[x$productive_cough==""]<-9
+x$productive_cough[grepl("^na",x$productive_cough,ignore.case=TRUE)] <- 99
 ```
 
 ```{r presence of blood in sputum}
-x$blood_sputum[x$blood_sputum=="NO"]<-0
-x$blood_sputum[x$blood_sputum=="YES"]<-1
-x$blood_sputum[x$blood_sputum=="NA"]<-99
+x$blood_sputum[grepl("^no",x$blood_sputum, ignore.case=TRUE)] <- 0
+x$blood_sputum[grepl("^yes",x$blood_sputum,ignore.case=TRUE)] <- 1
+x$blood_sputum[x$blood_sputum==""]<-9
+x$blood_sputum[grepl("^na",x$blood_sputum,ignore.case=TRUE)] <- 99
 ```
 
 ```{r fever}
-x$fever[x$fever=="NO"]<-0
-x$fever[x$fever=="YES"]<-1
+x$fever[grepl("^no",x$fever, ignore.case=TRUE)] <- 0
+x$fever[grepl("^yes",x$fever,ignore.case=TRUE)] <- 1
+x$fever[x$fever==""]<-9
+x$fever[grepl("^na",x$fever,ignore.case=TRUE)] <- 99
 ```
 
 ```{r fever duration}
 x$fever_duration[grepl("^l", x$fever_duration, ignore.case = TRUE)]<-1
+x$fever_duration[grepl("^<1", x$fever_duration, ignore.case = TRUE)]<-1
 x$fever_duration[grepl("^o", x$fever_duration, ignore.case = TRUE)]<-2
+x$fever_duration[grepl("^1-", x$fever_duration, ignore.case = TRUE)]<-2
 x$fever_duration[grepl("^g", x$fever_duration, ignore.case = TRUE)]<-3
-x$fever_duration[!grepl("^l|^o|^g", x$fever_duration, ignore.case = TRUE)]<-""
-x$fever_duration[x$fever_duration=="NA"]<-99
+x$fever_duration[grepl("^2-", x$fever_duration, ignore.case = TRUE)]<-3
+x$fever_duration[grepl("^>2-", x$fever_duration, ignore.case = TRUE)]<-3
+x$fever_duration[grepl("^na", x$fever_duration, ignore.case = TRUE)]<-99
+x$fever_duration[x$fever_duration==""]<-9
 ```
 
 ```{r presence of night sweats}
-x$nightsweats_2wks[x$nightsweats_2wks=="NO"]<-0
-x$nightsweats_2wks[x$nightsweats_2wks=="YES"]<-1
+x$nightsweats_2wks[grepl("^no",x$nightsweats_2wks, ignore.case=TRUE)] <- 0
+x$nightsweats_2wks[grepl("^yes",x$nightsweats_2wks,ignore.case=TRUE)] <- 1
+x$nightsweats_2wks[x$nightsweats_2wks==""]<-9
+x$nightsweats_2wks[grepl("^na",x$nightsweats_2wks,ignore.case=TRUE)] <- 99
 ```
 
 ```{r weight loss in year prior}
-x$wtloss_1month[x$wtloss_1month=="NO"]<-0
-x$wtloss_1month[x$wtloss_1month=="YES"]<-1
+x$wtloss_1month[grepl("^no",x$wtloss_1month, ignore.case=TRUE)] <- 0
+x$wtloss_1month[grepl("no",x$wtloss_1month, ignore.case=TRUE)] <- 0
+x$wtloss_1month[grepl("^yes",x$wtloss_1month,ignore.case=TRUE)] <- 1
+x$wtloss_1month[grepl("yes",x$wtloss_1month,ignore.case=TRUE)] <- 1
+x$wtloss_1month[x$wtloss_1month==""]<-9
+x$wtloss_1month[grepl("^na",x$wtloss_1month,ignore.case=TRUE)] <- 99
 ```
 
 ```{r fatigue prior 2 weeks}
-x$fatigue_last2wks[x$fatigue_last2wks=="NO"]<-0
-x$fatigue_last2wks[x$fatigue_last2wks=="YES"]<-1
+x$fatigue_last2wks[grepl("^no",x$fatigue_last2wks, ignore.case=TRUE)] <- 0
+x$fatigue_last2wks[grepl("^yes",x$fatigue_last2wks,ignore.case=TRUE)] <- 1
+x$fatigue_last2wks[x$fatigue_last2wks==""]<-9
+x$fatigue_last2wks[grepl("^na",x$fatigue_last2wks,ignore.case=TRUE)] <- 99
 ```
 
 ```{r ongoing chest pain}
-x$chestpain_current[x$chestpain_current=="NO"]<-0
-x$chestpain_current[x$chestpain_current=="YES"]<-1
+x$chestpain_current[grepl("^no",x$chestpain_current, ignore.case=TRUE)] <- 0
+x$chestpain_current[grepl("^yes",x$chestpain_current,ignore.case=TRUE)] <- 1
+x$chestpain_current[x$chestpain_current==""]<-9
+x$chestpain_current[grepl("^na",x$chestpain_current,ignore.case=TRUE)] <- 99
 ```
 
+###Where I left off
 
 ```{r previous tst done}
 x$tst1_done[x$tst1_done=="YES"]<-1
@@ -351,7 +384,7 @@ x$tst1_done[x$tst1_done=="NOT INDICATED"]<-3
 x$tst1_done[x$tst1_done=="NOTINDICATED"]<-3
 x$tst1_done[x$tst1_done=="NA"]<-99
 x$tst1_done[x$tst1_done=="REFUSED"]<-4
-x$tst1_date[x$tst1_date=="NA"]<-""
+
 ```
 
 ```{r main}
