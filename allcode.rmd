@@ -34,6 +34,8 @@ x$age[x$age=="NA"]<-""
 ```{r sex}
 x$sex[grepl("^m", x$sex, ignore.case = TRUE)]<-1
 x$sex[grepl("^f", x$sex, ignore.case = TRUE)]<-2
+x$sex[x$sex==""]<-9
+x$sex[grepl("^na", x$sex, ignore.case = TRUE)]<-99
 x$class_section[x$class_section=="NA"]<-""
 ```
 
@@ -58,49 +60,41 @@ x$enroll_date[x$enroll_date=="NA"]<-""
 
 
 ```{r occupation}
-x$occupation[x$occupation=="STUDENT"]<-1
-x$occupation[x$occupation=="TEACHER"]<-2
-x$occupation[x$occupation=="HEALTH-STAFF"]<-3
-x$occupation[x$occupation=="HEALTH STAFF"]<-3
-x$occupation[x$occupation=="OFFICE-STAFF"]<-4
-x$occupation[x$occupation=="OFFICE STAFF"]<-4
-x$occupation[x$occupation=="HOME-MOTHER"]<-5
-x$occupation[x$occupation=="HOME MOTHER"]<-5
-x$occupation[x$occupation=="MONK"]<-6
-x$occupation[x$occupation=="NUN"]<-7
-x$occupation[x$occupation=="COOK"]<-8
-x$occupation[x$occupation=="DRIVER"]<-9
-x$occupation[x$occupation=="HOME-FATHER"]<-10
-x$occupation[x$occupation=="HOME FATHER"]<-10
-x$occupation[x$occupation=="STAFF"]<-11
-x$occupation[x$occupation=="OTHER"]<-11
-x$occupation[x$occupation=="OTHER STAFF"]<-11
+
+x$occupation[grepl("^stu",x$occupation,ignore.case=TRUE)] <- 1
+x$occupation[grepl("^tea",x$occupation,ignore.case=TRUE)] <- 2
+x$occupation[grepl("^heal",x$occupation,ignore.case=TRUE)] <-3
+x$occupation[grepl("^off",x$occupation,ignore.case=TRUE)] <-4
+x$occupation[grepl("moth",x$occupation,ignore.case=TRUE)] <- 5
+x$occupation[grepl("^mon",x$occupation,ignore.case=TRUE)] <- 6
+x$occupation[grepl("^nun",x$occupation,ignore.case=TRUE)] <- 7
+x$occupation[grepl("^coo",x$occupation,ignore.case=TRUE)] <- 8
+x$occupation[grepl("^dri",x$occupation,ignore.case=TRUE)] <- 9
+x$occupation[grepl("fath",x$occupation,ignore.case=TRUE)] <- 10
+x$occupation[grepl("other",x$occupation,ignore.case=TRUE)] <- 11
+x$occupation[grepl("^na",x$occupation,ignore.case=TRUE)] <- 99
+x$occupation[x$occupation==""]<-999
 ```
 
 ```{r Country}
-x$birth_place[!grepl('^IND|^TIB|^NEP|^BHU|', x$birth_place,ignore.case=TRUE)] <- 5
-x$birth_place[x$birth_place=="INDIA"]<-1
-x$birth_place[x$birth_place=="TIBET"]<-2
-x$birth_place[x$birth_place=="NEPAL"]<-3
-x$birth_place[x$birth_place=="BHUTAN"]<-4
-x$birth_place[x$birth_place=="USA"]<-5
-x$birth_place[x$birth_place=="CANADA"]<-6
+x$birth_place[!grepl('^IND|^TIB|^NEP|^BHU|^US|^CAN', x$birth_place,ignore.case=TRUE)] <- 5
+x$birth_place[grepl("^ind",x$birth_place,ignore.case=TRUE)] <- 1
+x$birth_place[grepl("^tib",x$birth_place,ignore.case=TRUE)] <- 2
+x$birth_place[grepl("^nep",x$birth_place,ignore.case=TRUE)] <- 3
+x$birth_place[grepl("^bhu",x$birth_place,ignore.case=TRUE)] <- 4
+x$birth_place[grepl("^usa",x$birth_place,ignore.case=TRUE)] <- 5
+x$birth_place[grepl("^can",x$birth_place,ignore.case=TRUE)] <- 6
+x$birth_place[x$birth_place==""]<-9
+x$birth_place[grepl("^na",x$birth_place,ignore.case=TRUE)] <- 99
 
-
-x$arrivalyear_fromtibet[x$arrivalyear_fromtibet=="NA"]<-""
-
-
-
-x$ethnicity[x$ethnicity=="NA"]<-""
+x$arrivealyear_fromtibet[grepl("^na",x$arrivealyear_fromtibet,ignore.case=TRUE)] <- ""
+x$ethnicity[grepl("^na",x$ethnicity,ignore.case=TRUE)] <- ""
 ```
 
-
 ```{r run}
-x$address_settlement_city[x$address_settlement_city=="NA"]<-""
+x$address_settlement_city[grepl("^na",x$address_settlement_city,ignore.case=TRUE)] <- ""
+x$weight_kg[grepl("^na",x$weight_kg,ignore.case=TRUE)] <- ""
 
-
-
-x$weight_kg[x$weight_kg=="NA"]<-""
 ```
 
 ############################################################
@@ -108,69 +102,78 @@ x$weight_kg[x$weight_kg=="NA"]<-""
 ############################################################
 
 
-
-
 ##MAIN DATABASE tb INVESTIGATION CODE
 ```{r prev tb}
-x$prev_tb[x$prev_tb=="NO"]<-0
-x$prev_tb[x$prev_tb=="YES"]<-1
-x$prev_tb[x$prev_tb=="UNKNOWN"]<-9
-x$prev_tb[x$prev_tb=="NA"]<-99
+x$prev_tb[grepl("^no",x$prev_tb,ignore.case=TRUE)] <- 0
+x$prev_tb[grepl("^yes",x$prev_tb,ignore.case=TRUE)] <- 1
+x$prev_tb[x$prev_tb==""]<-9
+x$prev_tb[grepl("^na",x$prev_tb,ignore.case=TRUE)] <- 99
 ```
 
-```{r year of previous TB}
-x$prevtb_year[x$prevtb_year=="NA"]<-99
-x$prevtb_year[x$prevtb_year=="UNKNOWN"]<-9
+```{r year and site of previous TB}
+x$prevtb_year[grepl("^na",x$prevtb_year,ignore.case=TRUE)] <-""
+x$prevtb_site[grepl("^na",x$prevtb_site,ignore.case=TRUE)] <-""
 ```
 
 
 ```{r prev tb type}
-x$prevtb_type[x$prevtb_type=="NON MDR"]<-0
-x$prevtb_type[grepl("^no",x$prevtb_type, ignore.case = TRUE)]<-0
-x$prevtb_type[x$prevtb_type=="MDR"]<-1
-x$prevtb_type[grepl("^md",x$prevtb_type, ignore.case = TRUE)]<-1
-x$prevtb_type[x$prevtb_type=="NA"]<-99
-x$prevtb_type[x$prevtb_type=="UNKNOWN"]<-9
+x$prevtb_type[grepl("^non",x$prevtb_type,ignore.case=TRUE)] <- 0
+x$prevtb_type[grepl("^mdr",x$prevtb_type,ignore.case=TRUE)] <- 1
+x$prevtb_type[x$prevtb_type==""]<-9
+x$prevtb_type[grepl("^na",x$prevtb_type,ignore.case=TRUE)] <- 99
 
-x$prevtb_site[x$prevtb_site=="UNKNOWN"]<-9
-x$prevtb_site[x$prevtb_site=="NA"]<-99
 ```
 
 
 
 ```{r seizures}
-x$seizures[x$seizures=="NO"]<-0
-x$seizures[x$seizures=="no"]<-0
-x$seizures[x$seizures=="YES"]<-1
-x$seizures[x$seizures=="yes"]<-1
-x$seizures[x$seizures=="UNKNOWN"]<-9
-x$seizures[x$seizures=="NA"]<-99
+x$seizures[grepl("^no",x$seizures,ignore.case=TRUE)] <- 0
+x$seizures[grepl("^yes",x$seizures,ignore.case=TRUE)] <- 1
+x$seizures[x$seizures==""]<-9
+x$seizures[grepl("^na",x$seizures,ignore.case=TRUE)] <- 99
 ```
 
 ```{r hepb}
-x$hepb[x$hepb=="NO"]<-0
-x$hepb[x$hepb=="YES"]<-1
-x$hepb[x$hepb=="no"]<-0
-x$hepb[x$hepb=="yes"]<-1
+x$hepb[grepl("^no",x$hepb,ignore.case=TRUE)] <- 0
+x$hepb[grepl("^yes",x$hepb,ignore.case=TRUE)] <- 1
+x$hepb[x$hepb==""]<-9
+x$hepb[grepl("^na",x$hepb,ignore.case=TRUE)] <- 99
 ```
 
 ```{r preg_breastfeed}
-x$preg_breastfeed[x$preg_breastfeed=="NO"]<-0
-x$preg_breastfeed[x$preg_breastfeed=="PREG"]<-1
-x$preg_breastfeed[grepl("^bre", x$preg_breastfeed, ignore.case = TRUE)]<-2
-x$preg_breastfeed[x$preg_breastfeed=="BREASTFEED"]<-2
-x$preg_breastfeed[x$preg_breastfeed=="UNKNOWN"]<-9
-x$preg_breastfeed[x$preg_breastfeed=="NA"]<-99
+x$preg_breastfeed[grepl("^no",x$preg_breastfeed,ignore.case=TRUE)] <- 0
+x$preg_breastfeed[grepl("^yes",x$preg_breastfeed,ignore.case=TRUE)] <- 1
+x$preg_breastfeed[grepl("^preg",x$preg_breastfeed,ignore.case=TRUE)] <- 1
+x$preg_breastfeed[grepl("^brea",x$preg_breastfeed,ignore.case=TRUE)] <- 2
+x$preg_breastfeed[x$preg_breastfeed==""]<-9
+x$preg_breastfeed[grepl("^na",x$preg_breastfeed,ignore.case=TRUE)] <- 99
 ```
 
 ```{r other comorbid}
 x$other_cormorbid[grepl("^no", x$other_cormorbid, ignore.case = TRUE)]<-0
 x$other_cormorbid[x$other_cormorbid=="DM"]<-1
+x$other_cormorbid[grepl("^dia",x$other_cormorbid,ignore.case=TRUE)] <- 1
+x$other_cormorbid[grepl("^hyp",x$other_cormorbid,ignore.case=TRUE)] <- 2
 x$other_cormorbid[x$other_cormorbid=="HTN"]<-2
 x$other_cormorbid[x$other_cormorbid=="DM_HTN"]<-3
-x$other_cormorbid[grepl("^o", x$other_cormorbid, ignore.case = TRUE)]<-4
+x$other_cormorbid[grepl("^as", x$other_cormorbid, ignore.case = TRUE)]<-4
+x$other_cormorbid[grepl("^oth", x$other_cormorbid, ignore.case = TRUE)]<-5
+x$other_cormorbid[grepl("^na", x$other_cormorbid, ignore.case = TRUE)]<-99
+x$other_cormorbid[grepl("^hep", x$other_cormorbid, ignore.case = TRUE)]<-99
 x$other_cormorbid[x$other_cormorbid=="UNKNOWN"]<-9
+x$other_cormorbid[x$other_cormorbid==""]<-9
 x$other_cormorbid[x$other_cormorbid=="NA"]<-99
+x$other_cormorbid[!grepl("[0-99]", x$other_cormorbid, ignore.case = TRUE)]<-99
+```
+
+```{r split comorbidities for analysis}
+# Creates variables DM for diabetes hits and HTN for hypertension hits
+# x$DM<-0
+# x$DM[grep(1, x$other_cormorbid)]<-1
+# x$DM[grep(3, x$other_cormorbid)]<-1
+# x$HTN<-0
+# x$HTN[grep(2, x$other_cormorbid)]<-1
+# x$HTN[grep(3, x$other_cormorbid)]<-1
 ```
 
 ```{r longterm med}
