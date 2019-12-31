@@ -14,7 +14,7 @@ library(readr)
 library(dplyr)
 library(tidyverse)
 library(lubridate)
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/STCV/CT_TST_REAC.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("~/Zero TB in Kids/ztbtk_data/Lower_TCV_Main.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 ##Insitute variable renaming
 ##need to write this in based on what you see in the document
 x$institute[x$institute=="LTCV"]<-1
@@ -38,20 +38,14 @@ x$class_section[x$class_section=="NA"]<-""
 ```
 
 ```{r main TB Dorm}
-x$dorm_[!grepl("^B|^H|^G",x$dorm,ignore.case=TRUE)] <- ""
+x$dorm_[!grepl("^b|^h|^g|^s|^d",x$dorm,ignore.case=TRUE)] <-""
 x$dorm[grepl("^H-",x$dorm,ignore.case=TRUE)] <- 1
+x$dorm[grepl("^H",x$dorm,ignore.case=TRUE)] <- 1
 x$dorm[grepl("^G",x$dorm,ignore.case=TRUE)] <- 3
 x$dorm[grepl("^B",x$dorm,ignore.case=TRUE)] <- 2
 x$dorm[grepl("^sta", x$dorm, ignore.case = TRUE)]<-5
 x$dorm[grepl("^da", x$dorm, ignore.case = TRUE)]<-4
-x$dorm[grepl("^mgh", x$dorm, ignore.case=TRUE)]<-6
-x$dorm[grepl("^ygh", x$dorm, ignore.case=TRUE)]<-7
-x$dorm[grepl("^sos", x$dorm, ignore.case=TRUE)]<-8
-x$dorm[grepl("^ygy", x$dorm, ignore.case=TRUE)]<-10
-x$dorm[grepl("^d/s", x$dorm, ignore.case=TRUE)]<-11
-x$dorm[grepl("^s/c", x$dorm, ignore.case=TRUE)]<-12
-x$dorm[grepl("^lgy", x$dorm, ignore.case=TRUE)]<-13
-x$dorm[grepl("^sam", x$dorm, ignore.case=TRUE)]<-14
+
 x$dorm[x$dorm==""]<-9
 x$dorm[x$dorm=="NA"]<-99
 
@@ -60,7 +54,7 @@ x$enroll_date[x$enroll_date=="NA"]<-""
 
 ```
 
-```{r occuapation}
+```{r occupation}
 x$occupation[x$occupation=="STUDENT"]<-1
 x$occupation[x$occupation=="TEACHER"]<-2
 x$occupation[x$occupation=="HEALTH-STAFF"]<-3
@@ -107,13 +101,13 @@ x$weight_kg[x$weight_kg=="NA"]<-""
 ```
 
 ############################################################
-ALL CODE ABOVE MUST BE RUN FOR EACH SHEET
+###ALL CODE ABOVE MUST BE RUN FOR EACH SHEET
 ############################################################
 
 
 
 
-MAIN DATABASE tb INVESTIGATION CODE
+##MAIN DATABASE tb INVESTIGATION CODE
 ```{r prev tb}
 x$prev_tb[x$prev_tb=="NO"]<-0
 x$prev_tb[x$prev_tb=="YES"]<-1
@@ -497,7 +491,7 @@ x$main_database_demographics_complete<-2
 ```
 
 
-ACTIVE TB INVESTIGATION
+##ACTIVE TB INVESTIGATION
 
 ```{r Active Tb Tbinvestigation}
 x$prevtb_dst[x$prevtb_dst=="YES"]<-1
@@ -911,5 +905,5 @@ x$tst_reactive_treatment_complete<-2
 
 
 ```{r export}
-write.csv(x,"C:/Users/g_pun/Dropbox/ZeroTB/STCV/CONTACT_TRACE_clean.csv", na="")
+write.csv(x,"~/Zero TB in Kids/ztbtk_data_clean/Lower_TCV_Main_CLEAN.csv", na="")
 ```
