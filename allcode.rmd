@@ -376,14 +376,17 @@ x$chestpain_current[grepl("^na",x$chestpain_current,ignore.case=TRUE)] <- 99
 ###Where I left off
 
 ```{r previous tst done}
-x$tst1_done[x$tst1_done=="YES"]<-1
+x$tst1_done[grepl("^yes",x$tst1_done,ignore.case=TRUE)] <- 1
+x$tst1_done[grepl("^done",x$tst1_done,ignore.case=TRUE)] <- 1
+x$tst1_done[grepl("^no",x$tst1_done,ignore.case=TRUE)] <- 5
 x$tst1_done[x$tst1_done=="PREV TB"]<-2
 x$tst1_done[x$tst1_done=="PREVTB"]<-2
-x$tst1_done[grepl("^pr", x$tst1_done, ignore.case=TRUE)]<-2
-x$tst1_done[x$tst1_done=="NOT INDICATED"]<-3
-x$tst1_done[x$tst1_done=="NOTINDICATED"]<-3
-x$tst1_done[x$tst1_done=="NA"]<-99
-x$tst1_done[x$tst1_done=="REFUSED"]<-4
+x$tst1_done[grepl("^prev", x$tst1_done, ignore.case=TRUE)]<-2
+x$tst1_done[grepl("indicate", x$tst1_done, ignore.case=TRUE)]<-3
+x$tst1_done[grepl("refus", x$tst1_done, ignore.case=TRUE)]<-4
+x$tst1_done[grepl("^na", x$tst1_done, ignore.case=TRUE)]<-99
+x$tst1_done[x$tst1_done==""]<-9
+
 
 ```
 
