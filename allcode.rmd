@@ -102,7 +102,7 @@ x$weight_kg[grepl("^na",x$weight_kg,ignore.case=TRUE)] <- ""
 ############################################################
 
 
-##MAIN DATABASE tb INVESTIGATION CODE
+##MAIN DATABASE TB INVESTIGATION CODE
 ```{r prev tb}
 x$prev_tb[grepl("^no",x$prev_tb,ignore.case=TRUE)] <- 0
 x$prev_tb[grepl("^yes",x$prev_tb,ignore.case=TRUE)] <- 1
