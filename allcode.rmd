@@ -528,47 +528,76 @@ x$main_database_demographics_complete<-2
 
 ##ACTIVE TB INVESTIGATION
 
-```{r Active Tb Tbinvestigation}
-x$prevtb_dst[x$prevtb_dst=="YES"]<-1
-x$prevtb_dst[x$prevtb_dst=="NO"]<-0
-x$prevtb_dst[x$prevtb_dst=="NA"]<-99
-x$prevtb_dst[x$prevtb_dst=="UNKNOWN"]<-9
+```{r previous TB drug sensitivity}
+x$prevtb_dst[grepl("^no", x$prevtb_dst, ignore.case=TRUE)]<-0
+x$prevtb_dst[grepl("^yes", x$prevtb_dst, ignore.case=TRUE)]<-1
+x$prevtb_dst[grepl("^na", x$prevtb_dst, ignore.case=TRUE)]<-99
+x$prevtb_dst[grepl("^unk", x$prevtb_dst, ignore.case=TRUE)]<-9
+```
 
-x$comorbidity[x$comorbidity=="None"]<-0
-x$comorbidity[x$comorbidity=="NONE"]<-0
-x$comorbidity[x$comorbidity=="NO"]<-0
-x$comorbidity[x$comorbidity=="DM"]<-1
-x$comorbidity[x$comorbidity=="HTN"]<-2
+```{r co-morbidities}
+x$comorbidity[grepl("^no", x$comorbidity, ignore.case = TRUE)]<-0
+x$comorbidity[grepl("^dm_",x$comorbidity,ignore.case=TRUE)] <- 3
+x$comorbidity[grepl("^dia",x$comorbidity,ignore.case=TRUE)] <- 1
+x$comorbidity[grepl("^dm",x$comorbidity,ignore.case=TRUE)] <- 1
+x$comorbidity[grepl("^hyp",x$comorbidity,ignore.case=TRUE)] <- 2
+x$comorbidity[grepl("^htn",x$comorbidity,ignore.case=TRUE)] <- 2
+
+
 x$comorbidity[x$comorbidity=="DM_HTN"]<-3
-x$comorbidity[x$comorbidity=="Other"]<-4
-x$comorbidity[x$comorbidity=="OTHER"]<-4
+x$comorbidity[grepl("^as", x$comorbidity, ignore.case = TRUE)]<-4
+x$comorbidity[grepl("^oth", x$comorbidity, ignore.case = TRUE)]<-5
+x$comorbidity[grepl("^na", x$comorbidity, ignore.case = TRUE)]<-99
+x$comorbidity[grepl("^hep", x$comorbidity, ignore.case = TRUE)]<-5
+x$comorbidity[x$comorbidity=="UNKNOWN"]<-9
+x$comorbidity[x$comorbidity==""]<-9
 x$comorbidity[x$comorbidity=="NA"]<-99
+x$comorbidity[!grepl("[0-99]", x$comorbidity, ignore.case = TRUE)]<-99
+```
 
-x$chronic_meds[x$chronic_meds=="NO"]<-0
-x$chronic_meds[x$chronic_meds=="YES"]<-
-  
-x$contact_sch_oneyr[x$contact_sch_oneyr=="NO"]<-0
-x$contact_sch_oneyr[x$contact_sch_oneyr=="YES"]<-1
-x$contact_sch_oneyr[x$contact_sch_oneyr=="UNKNOWN"]<-9
-x$contact_sch_oneyr[x$contact_sch_oneyr=="NA"]<-99
+```{r chronic meds}
+x$chronic_meds[grepl("^no", x$chronic_meds, ignore.case=TRUE)]<-0
+x$chronic_meds[grepl("^yes", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^na", x$chronic_meds, ignore.case=TRUE)]<-99
 
+```
+
+```{r Contact with TB in the last one year at school}
+x$contact_sch_oneyr[grepl("^no", x$contact_sch_oneyr, ignore.case=TRUE)]<-0
+x$contact_sch_oneyr[grepl("^yes", x$contact_sch_oneyr, ignore.case=TRUE)]<-1
+x$contact_sch_oneyr[grepl("^unk", x$contact_sch_oneyr, ignore.case=TRUE)]<-9
+x$contact_sch_oneyr[grepl("^na", x$contact_sch_oneyr, ignore.case=TRUE)]<-99
+```
+
+```{r School index case tuberculosis in lung or pleura}
 x$indexcasesch_lung_pleura[x$indexcasesch_lung_pleura=="NO"]<-0
-x$indexcasesch_lung_pleura[grepl("^n", x$indexcasesch_lung_pleura, ignore.case = TRUE)]<-0
-x$indexcasesch_lung_pleura[grepl("^l", x$indexcasesch_lung_pleura, ignore.case = TRUE)]<-1
+x$indexcasesch_lung_pleura[grepl("^no", x$indexcasesch_lung_pleura, ignore.case = TRUE)]<-0
+x$indexcasesch_lung_pleura[grepl("^lun", x$indexcasesch_lung_pleura, ignore.case = TRUE)]<-1
+x$indexcasesch_lung_pleura[grepl("^ple", x$indexcasesch_lung_pleura, ignore.case = TRUE)]<-2
+x$indexcasesch_lung_pleura[grepl("^na", x$indexcasesch_lung_pleura, ignore.case = TRUE)]<-99
 x$indexcasesch_lung_pleura[x$indexcasesch_lung_pleura=="NA"]<-99
+```
 
-x$indexcasesch_sputumstatus[grepl("^N",x$indexcasesch_sputumstatus,ignore.case=FALSE)] <- 0
-x$indexcasesch_sputumstatus[grepl("^n",x$indexcasesch_sputumstatus,ignore.case=FALSE)] <- 0
-x$indexcasesch_sputumstatus[grepl("^P",x$indexcasesch_sputumstatus,ignore.case=FALSE)] <- 1
-x$indexcasesch_sputumstatus[grepl("^p",x$indexcasesch_sputumstatus,ignore.case=FALSE)] <- 1
+```{r School index case sputum status}
 
-x$indexcasesch_sputumstatus[x$indexcasesch_sputumstatus=="UNKNOWN"]<-9
-x$indexcasesch_sputumstatus[x$indexcasesch_sputumstatus=="NA"]<-99
+x$indexcasesch_sputumstatus[grepl("^neg",x$indexcasesch_sputumstatus,ignore.case=T)] <- 0
+x$indexcasesch_sputumstatus[grepl("^pos",x$indexcasesch_sputumstatus,ignore.case=T)] <- 1
+x$indexcasesch_sputumstatus[grepl("^not",x$indexcasesch_sputumstatus,ignore.case=T)] <- 2
+x$indexcasesch_sputumstatus[grepl("^unk",x$indexcasesch_sputumstatus,ignore.case=T)] <- 9
+x$indexcasesch_sputumstatus[grepl("^na",x$indexcasesch_sputumstatus,ignore.case=T)] <- 99
+```
 
-x$indexcasesch_dst[grepl("^no",x$indexcasesch_dst,ignore.case=FALSE)] <- 0
-x$indexcasesch_dst[grepl("^y",x$indexcasesch_dst,ignore.case=FALSE)] <- 1
-x$indexcasesch_dst[grepl("^u",x$indexcasesch_dst,ignore.case=FALSE)] <- 9
-x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=FALSE)] <- 99
+```{r School index case drug sensitivity}
+x$indexcasesch_dst[grepl("done",x$indexcasesch_dst,ignore.case=T)] <- 3
+x$indexcasesch_dst[grepl("^no",x$indexcasesch_dst,ignore.case=T)] <- 0
+x$indexcasesch_dst[grepl("^yes",x$indexcasesch_dst,ignore.case=T)] <- 1
+x$indexcasesch_dst[grepl("rif",x$indexcasesch_dst,ignore.case=T)] <- 2
+x$indexcasesch_dst[grepl("^unk",x$indexcasesch_dst,ignore.case=T)] <- 9
+x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=T)] <- 99
+```
+
+```{r Active Tb Tbinvestigation}
+
 
 x$indexcasesch_cough[x$indexcasesch_cough=="NO"]<-0
 x$indexcasesch_cough[x$indexcasesch_cough=="YES"]<-1
