@@ -796,6 +796,8 @@ x$active_tb_tbinvestigation_complete<-2
 x$tst_reactive_treatment_complete<-2
 ```
 
+##TST REACTIVE TREATMENT
+
 ```{r reactive TB}
 x$prev_therapy[grepl("NA",x$prev_therapy,ignore.case=TRUE)]<-""
 x$prev_therapy[grepl("RECE",x$prev_therapy,ignore.case=TRUE)]<-1
