@@ -4,7 +4,7 @@ author: "Anisha Nagpal"
 date: "November 24, 2019"
 output: html_document
 ---
-This document contains all the code to conver the data and upload to REDCap. 
+This document contains all the code to convert the data and upload to REDCap. 
 Before running this document, change x=read.csv("LOCATION OF FILE TO READ IN", ......)
 At the bottom of the document, change write.csv to the appropriate document name and location to save the new csv file for upload to REDCap
 
@@ -14,7 +14,8 @@ library(readr)
 library(dplyr)
 library(tidyverse)
 library(lubridate)
-x=read.csv("~/Zero TB in Kids/ztbtk_data/Lower_TCV_Main.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_LowerTCV_2017JUL10_TCV_Lower.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+
 ##Insitute variable renaming
 ##need to write this in based on what you see in the document
 x$institute[x$institute=="LTCV"]<-1
@@ -136,6 +137,7 @@ x$seizures[grepl("^na",x$seizures,ignore.case=TRUE)] <- 99
 ```{r hepb}
 x$hepb[grepl("^no",x$hepb,ignore.case=TRUE)] <- 0
 x$hepb[grepl("^yes",x$hepb,ignore.case=TRUE)] <- 1
+x$hepb[grepl("^pos",x$hepb,ignore.case=TRUE)] <- 1
 x$hepb[x$hepb==""]<-9
 x$hepb[grepl("^na",x$hepb,ignore.case=TRUE)] <- 99
 ```
@@ -397,6 +399,7 @@ x$tst1_result[x$tst1_result==""]<-9
 x$tst1_result[grepl("^na", x$tst1_result, ignore.case=TRUE)]<-99
 
 x$tst1_date_read[x$tst1_date_read=="NA"]<-""
+x$tst1_date[x$tst1_date=="NA"]<-""
 
 x$tst1_adr[grepl("^no", x$tst1_adr, ignore.case=TRUE)]<-0
 x$tst1_adr[grepl("^yes", x$tst1_adr, ignore.case=TRUE)]<-1
@@ -531,8 +534,12 @@ x$main_database_demographics_complete<-2
 ```{r previous TB drug sensitivity}
 x$prevtb_dst[grepl("^no", x$prevtb_dst, ignore.case=TRUE)]<-0
 x$prevtb_dst[grepl("^yes", x$prevtb_dst, ignore.case=TRUE)]<-1
+x$prevtb_dst[grepl("^rif-se", x$prevtb_dst, ignore.case = TRUE)]<-2
+x$prevtb_dst[grepl("^sens", x$prevtb_dst, ignore.case = TRUE)]<-1
+x$prevtb_dst[grepl("rif-re", x$prevtb_dst, ignore.case = TRUE)]<-4
 x$prevtb_dst[grepl("^na", x$prevtb_dst, ignore.case=TRUE)]<-99
 x$prevtb_dst[grepl("^unk", x$prevtb_dst, ignore.case=TRUE)]<-9
+x$prevtb_dst[grepl("^dst-unk", x$prevtb_dst, ignore.case=TRUE)]<-9
 ```
 
 ```{r co-morbidities}
@@ -558,6 +565,14 @@ x$comorbidity[!grepl("[0-99]", x$comorbidity, ignore.case = TRUE)]<-99
 ```{r chronic meds}
 x$chronic_meds[grepl("^no", x$chronic_meds, ignore.case=TRUE)]<-0
 x$chronic_meds[grepl("^yes", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^inha", x$chronic_meds, ignore.case=TRUE)]<-0
+x$chronic_meds[grepl("^puf", x$chronic_meds, ignore.case=TRUE)]<-0
+x$chronic_meds[grepl("^tib", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^pain", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^dia", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^pain", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^antihyp", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^teno", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^na", x$chronic_meds, ignore.case=TRUE)]<-99
 
 ```
@@ -591,7 +606,8 @@ x$indexcasesch_sputumstatus[grepl("^na",x$indexcasesch_sputumstatus,ignore.case=
 x$indexcasesch_dst[grepl("done",x$indexcasesch_dst,ignore.case=T)] <- 3
 x$indexcasesch_dst[grepl("^no",x$indexcasesch_dst,ignore.case=T)] <- 0
 x$indexcasesch_dst[grepl("^yes",x$indexcasesch_dst,ignore.case=T)] <- 1
-x$indexcasesch_dst[grepl("rif",x$indexcasesch_dst,ignore.case=T)] <- 2
+x$indexcasesch_dst[grepl("^rif-se",x$indexcasesch_dst,ignore.case=T)] <- 2
+x$indexcasesch_dst[grepl("^rif-re",x$indexcasesch_dst,ignore.case=T)] <- 4
 x$indexcasesch_dst[grepl("^unk",x$indexcasesch_dst,ignore.case=T)] <- 9
 x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=T)] <- 99
 ```
@@ -601,48 +617,73 @@ x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=T)] <- 99
 
 x$indexcasesch_cough[x$indexcasesch_cough=="NO"]<-0
 x$indexcasesch_cough[x$indexcasesch_cough=="YES"]<-1
+x$indexcasesch_cough[x$indexcasesch_cough=="NA"]<-99
 
 x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="NO"]<-0
 x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="YES"]<-1
+x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="NA"]<-99
 
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASS-MATE"]<-1
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Class-mate"]<-1
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASS MATE"]<-1
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="DORM-MATE"]<-2
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="DORM MATE"]<-2
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Dorm-mate"]<-2
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Hostel-mate"]<-2
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASSDORM-MATE"]<-3
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASSDORM MATE"]<-3
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="ClassDorm-mate"]<-3
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="ClassHostel-mate"]<-3
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="SCHOOL-STAFF"]<-4
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="SCHOOL STAFF"]<-4
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="School-staff"]<-4
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="FRIEND"]<-5
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="OTHER"]<-6
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Teacher"]<-6
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="GRAND-PARENT"]<-6
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Hostel Room-mate"]<-7
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Hostel Room mate"]<-7
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="HostelRoom mate"]<-7
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="HostelRoom-mate"]<-7
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="NA"]<-99
 
 x$indexcasehome_lung[x$indexcasehome_lung=="NO"]<-0
 x$indexcasehome_lung[x$indexcasehome_lung=="YES"]<-1
+x$indexcasehome_lung[x$indexcasehome_lung=="LUNG"]<-1
+x$indexcasehome_lung[x$indexcasehome_lung=="Lung"]<-1
 x$indexcasehome_lung[x$indexcasehome_lung=="NA"]<-99
 
-x$indexcasehome_dst[grepl("^no",x$indexcasehome_dst,ignore.case=FALSE)] <- 0
-x$indexcasehome_dst[grepl("^y",x$indexcasehome_dst,ignore.case=FALSE)] <- 1
-x$indexcasehome_dst[grepl("^u",x$indexcasehome_dst,ignore.case=FALSE)] <- 9
-x$indexcasehome_dst[grepl("^na",x$indexcasehome_dst,ignore.case=FALSE)] <- 99
+x$indexcasehome_dst[grepl("^no",x$indexcasehome_dst,ignore.case=TRUE)] <- 0
+x$indexcasehome_dst[grepl("^y",x$indexcasehome_dst,ignore.case=TRUE)] <- 1
+x$indexcasehome_dst[grepl("^rif-se",x$indexcasehome_dst,ignore.case=TRUE)] <- 2
+x$indexcasehome_dst[grepl("rif-re", x$indexcasehome_dst, ignore.case = TRUE)]<-4
+x$indexcasehome_dst[grepl("^un",x$indexcasehome_dst,ignore.case=TRUE)] <- 9
+x$indexcasehome_dst[grepl("^na",x$indexcasehome_dst,ignore.case=TRUE)] <- 99
 
-x$indexcasehome_sputumstatus[x$indexcasehome_sputumstatus=="NEGATIVE"]<-0
-x$indexcasehome_sputumstatus[x$indexcasehome_sputumstatus=="POSITIVE"]<-1
-x$indexcasehome_sputumstatus[x$indexcasehome_sputumstatus=="NOT DONE"]<-2
-x$indexcasehome_sputumstatus[x$indexcasehome_sputumstatus=="UNKNOWN"]<-9
+x$indexcasehome_sputumstatus[grepl("^neg", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-0
+x$indexcasehome_sputumstatus[grepl("^pos", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-1
+x$indexcasehome_sputumstatus[grepl("^not", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-1
+x$indexcasehome_sputumstatus[grepl("^unk", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-9
+x$indexcasehome_sputumstatus[grepl("^na", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-99
 
 x$indexcasehome_cough[x$indexcasehome_cough=="NO"]<-0
 x$indexcasehome_cough[x$indexcasehome_cough=="YES"]<-1
+x$indexcasehome_cough[grepl("^unk", x$indexcasehome_cough, ignore.case = TRUE)]<-9
 x$indexcasehome_cough[x$indexcasehome_cough=="NA"]<-99
 
 x$sharedroom_with_indexcasehome[x$sharedroom_with_indexcasehome=="NO"]<-0
 x$sharedroom_with_indexcasehome[x$sharedroom_with_indexcasehome=="YES"]<-1
+x$sharedroom_with_indexcasehome[x$sharedroom_with_indexcasehome=="NA"]<-99
 
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="PARENT"]<-1
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="SIBLING"]<-2
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRANDPARENT"]<-3
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRAND PARENT"]<-3
+x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRAND_PARENT"]<-3
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="OTHER"]<-4
+x$relation_with_indexcasehome[x$relation_with_indexcasehome=="FAMILY-FRD"]<-4
+x$relation_with_indexcasehome[x$relation_with_indexcasehome=="FAMILY_FRD"]<-4
+x$relation_with_indexcasehome[x$relation_with_indexcasehome=="RELATIVE"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="NA"]<-99
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="PARENT"]<-1
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="SIBLING"]<-2
@@ -971,5 +1012,5 @@ x$tst_reactive_treatment_complete<-2
 
 
 ```{r export}
-write.csv(x,"~/Zero TB in Kids/ztbtk_data_clean/Lower_TCV_Main_CLEAN.csv", na="")
+write.csv(x,"ZTBK_LowerTCV_2017JUL10_TCV_Lower.csv", na="")
 ```
