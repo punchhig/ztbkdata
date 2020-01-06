@@ -554,7 +554,7 @@ x$relation_with_indexcasesch[grepl("teach", x$relation_with_indexcasesch, ignore
 #friend
 x$relation_with_indexcasesch[grepl("friend", x$relation_with_indexcasesch, ignore.case = TRUE)]<-5
 #other
-x$relation_with_indexcasesch[!grepl("[0-99]", x$relation_with_indexcasesch, ignore.case = TRUE) & !grepl("", x$relation_with_indexcasesch, ignore.case = TRUE)]<-6
+x$relation_with_indexcasesch[!grepl("[0-99]| ", x$relation_with_indexcasesch, ignore.case = TRUE)] <-6
 
 ```
 
@@ -562,7 +562,7 @@ x$relation_with_indexcasesch[!grepl("[0-99]", x$relation_with_indexcasesch, igno
 x$indexcasehome_lung[grepl("^na", x$indexcasehome_lung, ignore.case = TRUE)]<-99
 x$indexcasehome_lung[grepl("^yes", x$indexcasehome_lung, ignore.case = TRUE)]<-1
 x$indexcasehome_lung[grepl("lung", x$indexcasehome_lung, ignore.case = TRUE)]<-1
-x$indexcasehome_lung[!grepl("[0-99]", x$indexcasehome_lung, ignore.case = TRUE) & !grepl("", x$indexcasehome_lung, ignore.case = TRUE)]<-99
+x$indexcasehome_lung[!grepl("[0-99]| ", x$indexcasehome_lung, ignore.case = TRUE)] <-99
 ```
 
 ```{r Home index case drug sensitivity}
@@ -583,46 +583,39 @@ x$indexcasehome_sputumstatus[grepl("^unk", x$indexcasehome_sputumstatus, ignore.
 x$indexcasehome_sputumstatus[grepl("^na", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-99
 ```
 
+```{r Does the home index case drug sensitivity have a cough?}
+x$indexcasehome_cough[grepl("^no", x$indexcasehome_cough, ignore.case=TRUE)]<-0
+x$indexcasehome_cough[grepl("^yes", x$indexcasehome_cough, ignore.case=TRUE)]<-1
+x$indexcasehome_cough[grepl("^unk", x$indexcasehome_cough, ignore.case=TRUE)]<-9
+x$indexcasehome_cough[grepl("^na", x$indexcasehome_cough, ignore.case=TRUE)]<-99
+```
+
+```{r Does the patient share a room with the home index case?}
+x$sharedroom_with_indexcasehome[grepl("^no", x$sharedroom_with_indexcasehome, ignore.case=TRUE)]<-0
+x$sharedroom_with_indexcasehome[grepl("^yes", x$sharedroom_with_indexcasehome, ignore.case=TRUE)]<-1
+x$sharedroom_with_indexcasehome[grepl("^na", x$sharedroom_with_indexcasehome, ignore.case=TRUE)]<-99
+```
+
+```{r Who is the index case at home?}
+x$relation_with_indexcasehome[grepl("^na", x$relation_with_indexcasehome, ignore.case=TRUE)]<-99
+x$relation_with_indexcasehome[grepl("grand", x$relation_with_indexcasehome, ignore.case=TRUE)]<-3
+x$relation_with_indexcasehome[grepl("^par", x$relation_with_indexcasehome, ignore.case=TRUE)]<-1
+x$relation_with_indexcasehome[grepl("^sib", x$relation_with_indexcasehome, ignore.case=TRUE)]<-2
+
+x$relation_with_indexcasehome[!grepl("[0-99]| ", x$relation_with_indexcasehome, ignore.case = TRUE)] <-4
+```
+
+```{r cxr date}
+x$cxr_date[grepl("^na", x$cxr_date, ignore.case=TRUE)]<-""
+```
+
+```{r Was TB diagnosed?}
+x$tb_diagnosis[grepl("^na", x$tb_diagnosis, ignore.case=TRUE)]<-99
+x$tb_diagnosis[grepl("^no", x$tb_diagnosis, ignore.case=TRUE)]<-0
+x$tb_diagnosis[grepl("^yes", x$tb_diagnosis, ignore.case=TRUE)]<-1
+```
+
 ```{r}
-
-x$indexcasehome_cough[x$indexcasehome_cough=="NO"]<-0
-x$indexcasehome_cough[x$indexcasehome_cough=="YES"]<-1
-x$indexcasehome_cough[grepl("^unk", x$indexcasehome_cough, ignore.case = TRUE)]<-9
-x$indexcasehome_cough[x$indexcasehome_cough=="NA"]<-99
-
-x$sharedroom_with_indexcasehome[x$sharedroom_with_indexcasehome=="NO"]<-0
-x$sharedroom_with_indexcasehome[x$sharedroom_with_indexcasehome=="YES"]<-1
-x$sharedroom_with_indexcasehome[x$sharedroom_with_indexcasehome=="NA"]<-99
-
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="PARENT"]<-1
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="FATHER"]<-1
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="MOTHER"]<-1
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="SIBLING"]<-2
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRANDPARENT"]<-3
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRAND PARENT"]<-3
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRAND_PARENT"]<-3
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="OTHER"]<-4
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="FAMILY-FRD"]<-4
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="FAMILY_FRD"]<-4
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="RELATIVE"]<-4
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="NA"]<-99
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="PARENT"]<-1
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="SIBLING"]<-2
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRANDPARENT"]<-3
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRAND PARENT"]<-3
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="OTHER"]<-4
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="YES"]<-4
-x$relation_with_indexcasehome[x$relation_with_indexcasehome=="NA"]<-99
-
-x$cxr_date[x$cxr_date=="NA"]<-""
-
-x$cxr_finding[x$cxr_finding=="NA"]<-""
-
-x$followup_advised[x$followup_advised=="NA"]<-""
-x$followup_complete[x$followup_complete=="NA"]<-""
-
-x$tb_diagnosis[x$tb_diagnosis=="NO"]<-0
-x$tb_diagnosis[x$tb_diagnosis=="YES"]<-1
 
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="TCV LADHAK"]<-20
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="BYLAKUPPE"]<-19
