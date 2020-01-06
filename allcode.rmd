@@ -100,7 +100,8 @@ x$prev_tb[grepl("^yes",x$prev_tb,ignore.case=TRUE)] <- 1
 x$prev_tb[x$prev_tb==""]<-9
 x$prev_tb[grepl("^na",x$prev_tb,ignore.case=TRUE)] <- 99
 
-x$prevtb_year[grepl("^na",x$prevtb_year,ignore.case=TRUE)] <-""
+x$prevtb_year[grepl("^n",x$prevtb_year,ignore.case=TRUE)] <-""
+
 x$prevtb_site[grepl("^na",x$prevtb_site,ignore.case=TRUE)] <-""
 
 x$prevtb_type[grepl("^non",x$prevtb_type,ignore.case=TRUE)] <- 0
@@ -281,7 +282,9 @@ x$fever_duration[grepl("^g", x$fever_duration, ignore.case = TRUE)]<-3
 x$fever_duration[grepl("^2-", x$fever_duration, ignore.case = TRUE)]<-3
 x$fever_duration[grepl("^>2-", x$fever_duration, ignore.case = TRUE)]<-3
 x$fever_duration[grepl("^na", x$fever_duration, ignore.case = TRUE)]<-99
+x$fever_duration[grepl("^nO", x$fever_duration, ignore.case = TRUE)]<-99
 x$fever_duration[x$fever_duration==""]<-9
+
 
 x$nightsweats_2wks[grepl("^no",x$nightsweats_2wks, ignore.case=TRUE)] <- 0
 x$nightsweats_2wks[grepl("^yes",x$nightsweats_2wks,ignore.case=TRUE)] <- 1
@@ -356,12 +359,14 @@ x$xpert1_result[grepl("^na", x$xpert1_result, ignore.case=TRUE)]<-99
 
 x$xpert1_mtb[grepl("^vl", x$xpert1_mtb, ignore.case=TRUE)]<-0
 x$xpert1_mtb[grepl("^low", x$xpert1_mtb, ignore.case=TRUE)]<-1
+x$xpert1_mtb[grepl("^very low", x$xpert1_mtb, ignore.case=TRUE)]<-1
 x$xpert1_mtb[grepl("^med", x$xpert1_mtb, ignore.case=TRUE)]<-2
 x$xpert1_mtb[grepl("^hi", x$xpert1_mtb, ignore.case=TRUE)]<-3
 x$xpert1_mtb[grepl("^na", x$xpert1_mtb, ignore.case=TRUE)]<-99
 
 
 x$xpert1_rif[grepl("^sen", x$xpert1_rif, ignore.case=TRUE)]<-0
+x$xpert1_rif[grepl("^rif-sen", x$xpert1_rif, ignore.case=TRUE)]<-0
 x$xpert1_rif[grepl("^res", x$xpert1_rif, ignore.case=TRUE)]<-1
 x$xpert1_rif[grepl("^indet", x$xpert1_rif, ignore.case=TRUE)]<-2
 x$xpert1_rif[grepl("^na", x$xpert1_rif, ignore.case=TRUE)]<-99
@@ -389,6 +394,7 @@ x$xpert2_result[grepl("^na", x$xpert2_result, ignore.case=TRUE)]<-99
 
 x$xpert2_mtb[grepl("^vl", x$xpert2_result, ignore.case=TRUE)]<-0
 x$xpert2_mtb[grepl("^low", x$xpert2_result, ignore.case=TRUE)]<-1
+x$xpert2_mtb[grepl("^very low", x$xpert2_mtb, ignore.case=TRUE)]<-1
 x$xpert2_mtb[grepl("^med", x$xpert2_result, ignore.case=TRUE)]<-2
 x$xpert2_mtb[grepl("^hi", x$xpert2_result, ignore.case=TRUE)]<-3
 x$xpert2_mtb[grepl("^na", x$xpert2_result, ignore.case=TRUE)]<-99
@@ -450,6 +456,7 @@ x$comorbidity[x$comorbidity=="NA"]<-99
 x$comorbidity[!grepl("[0-99]", x$comorbidity, ignore.case = TRUE)]<-99
 
 x$chronic_meds[grepl("^no", x$chronic_meds, ignore.case=TRUE)]<-0
+is.na(x$chronic_meds)
 x$chronic_meds[grepl("^yes", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^inha", x$chronic_meds, ignore.case=TRUE)]<-0
 x$chronic_meds[grepl("^puf", x$chronic_meds, ignore.case=TRUE)]<-0
@@ -459,6 +466,7 @@ x$chronic_meds[grepl("^dia", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^pain", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^antihyp", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^teno", x$chronic_meds, ignore.case=TRUE)]<-1
+x$chronic_meds[grepl("^ayur", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^na", x$chronic_meds, ignore.case=TRUE)]<-99
 
 ```
@@ -491,14 +499,13 @@ x$indexcasesch_dst[grepl("^rif-re",x$indexcasesch_dst,ignore.case=T)] <- 4
 x$indexcasesch_dst[grepl("^unk",x$indexcasesch_dst,ignore.case=T)] <- 9
 x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=T)] <- 99
 
-
+x$indexcasesch_cough[x$indexcasesch_cough=="NA"]<-99
 x$indexcasesch_cough[x$indexcasesch_cough=="NO"]<-0
 x$indexcasesch_cough[x$indexcasesch_cough=="YES"]<-1
-x$indexcasesch_cough[x$indexcasesch_cough=="NA"]<-99
 
-x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="NO"]<-0
-x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="YES"]<-1
 x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="NA"]<-99
+x$sharedroom_with_indexcasesch[grepl("^n", x$sharedroom_with_indexcasesch, ignore.case = TRUE)]<-0
+x$sharedroom_with_indexcasesch[grepl("^y", x$sharedroom_with_indexcasesch, ignore.case = TRUE)]<-1
 
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASS-MATE"]<-1
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Class-mate"]<-1
@@ -507,10 +514,12 @@ x$relation_with_indexcasesch[x$relation_with_indexcasesch=="DORM-MATE"]<-2
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="DORM MATE"]<-2
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Dorm-mate"]<-2
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Hostel-mate"]<-2
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="HOSTEL-MATE"]<-2
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASSDORM-MATE"]<-3
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASSDORM MATE"]<-3
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="ClassDorm-mate"]<-3
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="ClassHostel-mate"]<-3
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="HOSTEL-CLASS-MATE"]<-3
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="SCHOOL-STAFF"]<-4
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="SCHOOL STAFF"]<-4
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="School-staff"]<-4
@@ -522,10 +531,12 @@ x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Hostel Room-mate"]<-
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Hostel Room mate"]<-7
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="HostelRoom mate"]<-7
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="HostelRoom-mate"]<-7
+x$relation_with_indexcasesch[x$relation_with_indexcasesch=="HOSTEL-ROOM-MATE"]<-7
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="NA"]<-99
 
 x$indexcasehome_lung[x$indexcasehome_lung=="NO"]<-0
 x$indexcasehome_lung[x$indexcasehome_lung=="YES"]<-1
+x$indexcasehome_lung[x$indexcasehome_lung=="ABDOMINAL"]<-0
 x$indexcasehome_lung[x$indexcasehome_lung=="LUNG"]<-1
 x$indexcasehome_lung[x$indexcasehome_lung=="Lung"]<-1
 x$indexcasehome_lung[x$indexcasehome_lung=="NA"]<-99
@@ -569,6 +580,7 @@ x$relation_with_indexcasehome[x$relation_with_indexcasehome=="SIBLING"]<-2
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRANDPARENT"]<-3
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="GRAND PARENT"]<-3
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="OTHER"]<-4
+x$relation_with_indexcasehome[x$relation_with_indexcasehome=="YES"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="NA"]<-99
 
 x$cxr_date[x$cxr_date=="NA"]<-""
