@@ -558,14 +558,14 @@ x$relation_with_indexcasesch[!grepl("[0-99]", x$relation_with_indexcasesch, igno
 
 ```
 
-```{r}
+```{r Does the home index case have tuberculosis in the lungs?}
+x$indexcasehome_lung[grepl("^na", x$indexcasehome_lung, ignore.case = TRUE)]<-99
+x$indexcasehome_lung[grepl("^yes", x$indexcasehome_lung, ignore.case = TRUE)]<-1
+x$indexcasehome_lung[grepl("lung", x$indexcasehome_lung, ignore.case = TRUE)]<-1
+x$indexcasehome_lung[!grepl("[0-99]", x$indexcasehome_lung, ignore.case = TRUE) & !grepl("", x$indexcasehome_lung, ignore.case = TRUE)]<-99
+```
 
-x$indexcasehome_lung[x$indexcasehome_lung=="NO"]<-0
-x$indexcasehome_lung[x$indexcasehome_lung=="YES"]<-1
-x$indexcasehome_lung[x$indexcasehome_lung=="ABDOMINAL"]<-0
-x$indexcasehome_lung[x$indexcasehome_lung=="LUNG"]<-1
-x$indexcasehome_lung[x$indexcasehome_lung=="Lung"]<-1
-x$indexcasehome_lung[x$indexcasehome_lung=="NA"]<-99
+```{r Home index case drug sensitivity}
 
 x$indexcasehome_dst[grepl("^no",x$indexcasehome_dst,ignore.case=TRUE)] <- 0
 x$indexcasehome_dst[grepl("^y",x$indexcasehome_dst,ignore.case=TRUE)] <- 1
@@ -573,12 +573,17 @@ x$indexcasehome_dst[grepl("^rif-se",x$indexcasehome_dst,ignore.case=TRUE)] <- 2
 x$indexcasehome_dst[grepl("rif-re", x$indexcasehome_dst, ignore.case = TRUE)]<-4
 x$indexcasehome_dst[grepl("^un",x$indexcasehome_dst,ignore.case=TRUE)] <- 9
 x$indexcasehome_dst[grepl("^na",x$indexcasehome_dst,ignore.case=TRUE)] <- 99
+```
 
+```{r Home index case sputum status}
 x$indexcasehome_sputumstatus[grepl("^neg", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-0
 x$indexcasehome_sputumstatus[grepl("^pos", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-1
 x$indexcasehome_sputumstatus[grepl("^not", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-1
 x$indexcasehome_sputumstatus[grepl("^unk", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-9
 x$indexcasehome_sputumstatus[grepl("^na", x$indexcasehome_sputumstatus, ignore.case=TRUE)]<-99
+```
+
+```{r}
 
 x$indexcasehome_cough[x$indexcasehome_cough=="NO"]<-0
 x$indexcasehome_cough[x$indexcasehome_cough=="YES"]<-1
