@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_STCV_2017SEP25_PHAR_PRES.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_CTCV_2017SEP25_Chauntra_TCV_clean.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -31,12 +31,15 @@ x$institute[x$institute=="LTCV"]<-1
 x$institute[x$institute=="LTCV"]<-1
 x$institute[x$institute=="STSP"]<-10
 x$institute[x$institute=="TCV SUJA"]<-4
+x$institute[x$institute=="TCV CHAUNTRA"]<-5
+
 
 x$age[x$age=="NA"]<-""
 
 x$sex[grepl("^m", x$sex, ignore.case = TRUE)]<-1
 x$sex[grepl("^f", x$sex, ignore.case = TRUE)]<-2
 x$sex[x$sex==""]<-9
+x$sex[x$sex=="STAFF"]<-9
 x$sex[grepl("^na", x$sex, ignore.case = TRUE)]<-99
 
 x$class_section[x$class_section=="NA"]<-""
@@ -58,6 +61,9 @@ x$dorm[grepl("^nur", x$dorm, ignore.case = TRUE)]<-99
 x$dorm[grepl("^dri", x$dorm, ignore.case = TRUE)]<-99
 x$dorm[grepl("^dir", x$dorm, ignore.case = TRUE)]<-99
 x$dorm[grepl("^da", x$dorm, ignore.case = TRUE)]<-4
+x$dorm[grepl("^spe", x$dorm, ignore.case = TRUE)]<-99
+x$dorm[grepl("^peo", x$dorm, ignore.case = TRUE)]<-99
+x$dorm[grepl("^oth", x$dorm, ignore.case = TRUE)]<-99
 
 x$dorm[x$dorm==""]<-9
 x$dorm[x$dorm=="NA"]<-99
@@ -488,18 +494,13 @@ x$chronic_meds[grepl("^pain", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^antihyp", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^teno", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^ayur", x$chronic_meds, ignore.case=TRUE)]<-1
-<<<<<<< HEAD
 x$chronic_meds[grepl("^ente", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^on", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^tel", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^amlo", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^asth", x$chronic_meds, ignore.case=TRUE)]<-1
 x$chronic_meds[grepl("^bede", x$chronic_meds, ignore.case=TRUE)]<-1
-=======
-
 x$chronic_meds[!grepl("^no|^not", x$chronic_meds, ignore.case=TRUE)]<-1
-
->>>>>>> 140795d4cb5ba0cee660012708df94a86c41c40a
 x$chronic_meds[grepl("^na", x$chronic_meds, ignore.case=TRUE)]<-99
 x$chronic_meds[x$chronic_meds==""]<-99
 
@@ -548,17 +549,15 @@ x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=T)] <- 99
 x$indexcasesch_cough[grepl("^na",x$indexcasesch_cough,ignore.case=T)] <- 99
 x$indexcasesch_cough[grepl("^no",x$indexcasesch_cough,ignore.case=T)] <- 0
 x$indexcasesch_cough[grepl("^yes",x$indexcasesch_cough,ignore.case=T)] <- 1
-```
 
-<<<<<<< HEAD
 x$indexcasesch_cough[x$indexcasesch_cough=="NA"]<-99
 x$indexcasesch_cough[x$indexcasesch_cough=="NO"]<-0
 x$indexcasesch_cough[x$indexcasesch_cough=="YES"]<-1
 x$indexcasesch_cough[x$indexcasesch_cough=="NN"]<-9
 
-=======
+```
+
 ```{r Does the patient share a room with the school index case?}
->>>>>>> 140795d4cb5ba0cee660012708df94a86c41c40a
 
 x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="NA"]<-99
 x$sharedroom_with_indexcasesch[grepl("^n", x$sharedroom_with_indexcasesch, ignore.case = TRUE)]<-0
@@ -595,7 +594,6 @@ x$relation_with_indexcasesch[grepl("friend", x$relation_with_indexcasesch, ignor
 #other
 x$relation_with_indexcasesch[!grepl("[0-99]| ", x$relation_with_indexcasesch, ignore.case = TRUE)] <-6
 
-<<<<<<< HEAD
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASS-MATE"]<-1
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="Class-mate"]<-1
 x$relation_with_indexcasesch[x$relation_with_indexcasesch=="CLASS MATE"]<-
@@ -632,9 +630,9 @@ x$indexcasehome_lung[x$indexcasehome_lung=="YES"]<-1
 x$indexcasehome_lung[x$indexcasehome_lung=="ABDOMINAL"]<-0
 x$indexcasehome_lung[x$indexcasehome_lung=="LUNG"]<-1
 x$indexcasehome_lung[x$indexcasehome_lung=="Lung"]<-1
+x$indexcasehome_lung[x$indexcasehome_lung=="NOT KNOWN"]<-9
 x$indexcasehome_lung[x$indexcasehome_lung=="NA"]<-99
 x$indexcasehome_lung[x$indexcasehome_lung=="<1"]<-1
-=======
 ```
 
 ```{r Does the home index case have tuberculosis in the lungs?}
@@ -645,7 +643,7 @@ x$indexcasehome_lung[!grepl("[0-99]| ", x$indexcasehome_lung, ignore.case = TRUE
 ```
 
 ```{r Home index case drug sensitivity}
->>>>>>> 140795d4cb5ba0cee660012708df94a86c41c40a
+
 
 x$indexcasehome_dst[grepl("^no",x$indexcasehome_dst,ignore.case=TRUE)] <- 0
 x$indexcasehome_dst[grepl("^y",x$indexcasehome_dst,ignore.case=TRUE)] <- 1
@@ -693,9 +691,7 @@ x$cxr_date[grepl("^na", x$cxr_date, ignore.case=TRUE)]<-""
 x$tb_diagnosis[grepl("^na", x$tb_diagnosis, ignore.case=TRUE)]<-99
 x$tb_diagnosis[grepl("^no", x$tb_diagnosis, ignore.case=TRUE)]<-0
 x$tb_diagnosis[grepl("^yes", x$tb_diagnosis, ignore.case=TRUE)]<-1
-```
 
-<<<<<<< HEAD
 x$indexcasehome_cough[x$indexcasehome_cough=="NO"]<-0
 x$indexcasehome_cough[x$indexcasehome_cough=="YES"]<-1
 x$indexcasehome_cough[grepl("^unk", x$indexcasehome_cough, ignore.case = TRUE)]<-9
@@ -748,9 +744,10 @@ x$followup_complete[x$followup_complete=="NA"]<-""
 
 x$tb_diagnosis[x$tb_diagnosis=="NO"]<-0
 x$tb_diagnosis[x$tb_diagnosis=="YES"]<-1
-=======
+
+```
 ```{r}
->>>>>>> 140795d4cb5ba0cee660012708df94a86c41c40a
+
 
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="TCV LADHAK"]<-20
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="BYLAKUPPE"]<-19
@@ -1074,6 +1071,6 @@ x$duration_irpt[grepl("^90", x$duration_irpt, ignore.case=TRUE)]<-1
 
 ```{r export}
 
-write.csv(x,"ZTBK_STCV_2017SEP25_STCV_PHAR_PRES_clean.csv", na="")
+write.csv(x,"ZTBK_CTCV_2017SEP25_Chauntra_TCV_clean.csv", na="")
 
 ```
