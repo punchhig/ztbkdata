@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_CTCV_2017SEP25_Chauntra_TCV_clean.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_PETOEN_2017SEP25_PETON_clean.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -32,6 +32,8 @@ x$institute[x$institute=="LTCV"]<-1
 x$institute[x$institute=="STSP"]<-10
 x$institute[x$institute=="TCV SUJA"]<-4
 x$institute[x$institute=="TCV CHAUNTRA"]<-5
+x$institute[x$institute=="STSC"]<-6
+x$institute[x$institute=="PETOEN"]<-8
 
 
 x$age[x$age=="NA"]<-""
@@ -44,7 +46,7 @@ x$sex[grepl("^na", x$sex, ignore.case = TRUE)]<-99
 
 x$class_section[x$class_section=="NA"]<-""
 
-x$dorm_[!grepl("^b|^h|^g|^sta|^day",x$dorm,ignore.case=TRUE)] <-99
+x$dorm[!grepl("^b|^h|^g|^sta|^day",x$dorm,ignore.case=TRUE)] <-99
 x$dorm[grepl("^teac",x$dorm,ignore.case=TRUE)] <-99
 x$dorm[grepl("^sam",x$dorm,ignore.case=TRUE)] <-99
 x$dorm[grepl("^k",x$dorm,ignore.case=TRUE)] <-99
@@ -64,6 +66,17 @@ x$dorm[grepl("^da", x$dorm, ignore.case = TRUE)]<-4
 x$dorm[grepl("^spe", x$dorm, ignore.case = TRUE)]<-99
 x$dorm[grepl("^peo", x$dorm, ignore.case = TRUE)]<-99
 x$dorm[grepl("^oth", x$dorm, ignore.case = TRUE)]<-99
+x$dorm[grepl("^yu", x$dorm, ignore.case = TRUE)]<-99
+x$dorm[grepl("^nan", x$dorm, ignore.case = TRUE)]<-99
+x$dorm[grepl("^ati", x$dorm, ignore.case = TRUE)]<-99
+x$dorm[grepl("^not kn", x$dorm, ignore.case = TRUE)]<-9
+x$dorm[grepl("^warden", x$dorm, ignore.case = TRUE)]<-5
+
+
+
+
+
+
 
 x$dorm[x$dorm==""]<-9
 x$dorm[x$dorm=="NA"]<-99
@@ -161,7 +174,7 @@ x$other_cormorbid[grepl("^hep", x$other_cormorbid, ignore.case = TRUE)]<-99
 x$other_cormorbid[x$other_cormorbid=="UNKNOWN"]<-9
 x$other_cormorbid[x$other_cormorbid==""]<-9
 x$other_cormorbid[x$other_cormorbid=="NA"]<-99
-x$other_cormorbid[!grepl("[0-99]", x$other_cormorbid, ignore.case = TRUE)]<-99
+
 
 # Creates variables DM for diabetes hits and HTN for hypertension hits
 # x$DM<-0
@@ -387,6 +400,8 @@ x$xpert1_mtb[grepl("^very low", x$xpert1_mtb, ignore.case=TRUE)]<-1
 x$xpert1_mtb[grepl("^med", x$xpert1_mtb, ignore.case=TRUE)]<-2
 x$xpert1_mtb[grepl("^hi", x$xpert1_mtb, ignore.case=TRUE)]<-3
 x$xpert1_mtb[grepl("^na", x$xpert1_mtb, ignore.case=TRUE)]<-99
+x$xpert1_mtb[grepl("^not", x$xpert1_mtb, ignore.case=TRUE)]<-99
+
 
 
 x$xpert1_rif[grepl("^sen", x$xpert1_rif, ignore.case=TRUE)]<-0
@@ -394,6 +409,7 @@ x$xpert1_rif[grepl("^rif-sen", x$xpert1_rif, ignore.case=TRUE)]<-0
 x$xpert1_rif[grepl("^res", x$xpert1_rif, ignore.case=TRUE)]<-1
 x$xpert1_rif[grepl("^indet", x$xpert1_rif, ignore.case=TRUE)]<-2
 x$xpert1_rif[grepl("^na", x$xpert1_rif, ignore.case=TRUE)]<-99
+x$xpert1_rif[grepl("^not", x$xpert1_rif, ignore.case=TRUE)]<-99
 
 x$xpert2_date[x$xpert2_date=="NA"]<-""
 
@@ -734,6 +750,8 @@ x$relation_with_indexcasehome[x$relation_with_indexcasehome=="CLASS-ROOM-MATE"]<
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="SON"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="YES"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="NA"]<-99
+x$relation_with_indexcasehome[x$relation_with_indexcasehome=="BROTHER INLAW"]<-4
+
 
 x$cxr_date[x$cxr_date=="NA"]<-""
 
@@ -896,7 +914,7 @@ x$end_rx_smear[grepl("^NOT",x$end_rx_smear,ignore.case=TRUE)] <- 2
 x$end_rx_smear[grepl("^NEG",x$end_rx_smear,ignore.case=TRUE)] <- 0
 x$end_rx_smear[grepl("^POS",x$end_rx_smear,ignore.case=TRUE)] <- 1
 
-x$date_rx_stoppped[x$date_rx_stopped=="NA"]<-""
+x$date_rx_stopped[x$date_rx_stoped=="NA"]<-""
 
 x$rx_outcome[grepl("^NA",x$rx_outcome,ignore.case=TRUE)] <- ""
 x$rx_outcome[grepl("^CU",x$rx_outcome,ignore.case=TRUE)] <- 1
@@ -1071,6 +1089,6 @@ x$duration_irpt[grepl("^90", x$duration_irpt, ignore.case=TRUE)]<-1
 
 ```{r export}
 
-write.csv(x,"ZTBK_CTCV_2017SEP25_Chauntra_TCV_clean.csv", na="")
+write.csv(x,"ZTBK_PETOEN_2017SEP25_PETON_clean.csv", na="")
 
 ```
