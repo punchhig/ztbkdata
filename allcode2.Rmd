@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_CTCV_2018FEB27_TST_REAC.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_GopalpurTCV_10JULY2017_ActiveTB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -35,6 +35,9 @@ x$institute[x$institute=="TCV CHAUNTRA"]<-5
 x$institute[x$institute=="STSC"]<-6
 x$institute[x$institute=="PETOEN"]<-8
 x$institute[x$institute=="PETON"]<-8
+x$institute[x$institute=="TCV_DAYSCHOOL"]<-7
+
+
 
 
 
@@ -410,7 +413,9 @@ x$xpert1_mtb[grepl("^not", x$xpert1_mtb, ignore.case=TRUE)]<-99
 
 x$xpert1_rif[grepl("^sen", x$xpert1_rif, ignore.case=TRUE)]<-0
 x$xpert1_rif[grepl("^rif-sen", x$xpert1_rif, ignore.case=TRUE)]<-0
+x$xpert1_rif[grepl("^rif sen", x$xpert1_rif, ignore.case=TRUE)]<-0
 x$xpert1_rif[grepl("^res", x$xpert1_rif, ignore.case=TRUE)]<-1
+x$xpert1_rif[grepl("^rif res", x$xpert1_rif, ignore.case=TRUE)]<-1
 x$xpert1_rif[grepl("^indet", x$xpert1_rif, ignore.case=TRUE)]<-2
 x$xpert1_rif[grepl("^na", x$xpert1_rif, ignore.case=TRUE)]<-99
 x$xpert1_rif[grepl("^not", x$xpert1_rif, ignore.case=TRUE)]<-99
@@ -540,6 +545,7 @@ x$indexcasesch_dst[grepl("^yes",x$indexcasesch_dst,ignore.case=T)] <- 1
 x$indexcasesch_dst[grepl("^pos",x$indexcasesch_dst,ignore.case=T)] <- 1
 x$indexcasesch_dst[grepl("^rif-se",x$indexcasesch_dst,ignore.case=T)] <- 2
 x$indexcasesch_dst[grepl("^rif-re",x$indexcasesch_dst,ignore.case=T)] <- 4
+x$indexcasesch_dst[grepl("^rif se",x$indexcasesch_dst,ignore.case=T)] <- 2
 x$indexcasesch_dst[grepl("^unk",x$indexcasesch_dst,ignore.case=T)] <- 9
 x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=T)] <- 99
 ```
@@ -751,6 +757,7 @@ x$tb_diagnosis[x$tb_diagnosis=="NO"]<-0
 x$tb_diagnosis[x$tb_diagnosis=="YES"]<-1
 
 ```
+
 ```{r}
 
 
@@ -1077,6 +1084,5 @@ x$duration_irpt[grepl("^90", x$duration_irpt, ignore.case=TRUE)]<-1
 
 ```{r export}
 
-write.csv(x,"ZTBK_CTCV_2018FEB27_TST_REAC_clean.csv", na="")
-
+write.csv(x,"ZTBK_GopalpurTCV_10JULY2017_ActiveTB_clean.csv", na="")
 ```
