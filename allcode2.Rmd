@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_GopalpurTCV_10JULY2017_ActiveTB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_GopalpurTCV_2017AUG06_TCV_Gopur_clean.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -140,7 +140,7 @@ x$prev_tb[grepl("^na",x$prev_tb,ignore.case=TRUE)] <- 99
 x$prevtb_year[grepl("^na",x$prevtb_year,ignore.case=TRUE)] <-99
 x$prevtb_year[grepl("^u",x$prevtb_year,ignore.case=TRUE)] <-""
 x$prevtb_year[grepl("^not",x$prevtb_year,ignore.case=TRUE)] <-""
-
+x$prevtb_year[grepl("^no",x$prevtb_year,ignore.case=TRUE)] <-""
 
 
 x$prevtb_site[grepl("^na",x$prevtb_site,ignore.case=TRUE)] <-99
@@ -244,11 +244,13 @@ x$indexcasesch_is[x$indexcasesch_is=="SCHOOL-STAFF"]<-4
 x$indexcasesch_is[x$indexcasesch_is=="FRIEND"]<-5
 x$indexcasesch_is[x$indexcasesch_is=="OTHER"]<-6
 x$indexcasesch_is[x$indexcasesch_is=="NA"]<-99
+
 x$indexcasesch_count[x$indexcasesch_count=="0"]<-0
 x$indexcasesch_count[x$indexcasesch_count=="1"]<-1
 x$indexcasesch_count[x$indexcasesch_count=="2"]<-2
 x$indexcasesch_count[x$indexcasesch_count=="3"]<-3
 x$indexcasesch_count[x$indexcasesch_count=="4"]<-3
+x$indexcasesch_count[x$indexcasesch_count=="777"]<-99
 x$indexcasesch_count[grepl("^>",x$indexcasesch_count, ignore.case=FALSE)]<-3
 x$indexcasesch_count[x$indexcasesch_count=="NA"]<-99
 x$indexcasesch_count[x$indexcasesch_count==""]<-9
@@ -327,6 +329,7 @@ x$fever_duration[grepl("^2-", x$fever_duration, ignore.case = TRUE)]<-3
 x$fever_duration[grepl("^>2-", x$fever_duration, ignore.case = TRUE)]<-3
 x$fever_duration[grepl("^na", x$fever_duration, ignore.case = TRUE)]<-99
 x$fever_duration[grepl("^nO", x$fever_duration, ignore.case = TRUE)]<-99
+x$fever_duration[grepl("^?2", x$fever_duration, ignore.case = TRUE)]<-9
 x$fever_duration[x$fever_duration==""]<-9
 
 
@@ -392,6 +395,7 @@ x$xpert1_specimen[grepl("^pleu", x$xpert1_specimen, ignore.case=TRUE)]<-4
 x$xpert1_specimen[grepl("^uri", x$xpert1_specimen, ignore.case=TRUE)]<-5
 x$xpert1_specimen[grepl("^csf", x$xpert1_specimen, ignore.case=TRUE)]<-6
 x$xpert1_specimen[grepl("^na", x$xpert1_specimen, ignore.case=TRUE)]<-99
+x$xpert1_specimen[grepl("^no", x$xpert1_specimen, ignore.case=TRUE)]<-99
 
 x$xpert1_result[grepl("^pos", x$xpert1_result, ignore.case=TRUE)]<-1
 x$xpert1_result[grepl("^ det", x$xpert1_result, ignore.case=TRUE)]<-1
@@ -655,7 +659,9 @@ x$indexcasehome_lung[grepl("lung", x$indexcasehome_lung, ignore.case = TRUE)]<-1
 x$indexcasehome_dst[grepl("^no",x$indexcasehome_dst,ignore.case=TRUE)] <- 0
 x$indexcasehome_dst[grepl("^y",x$indexcasehome_dst,ignore.case=TRUE)] <- 1
 x$indexcasehome_dst[grepl("^rif-s",x$indexcasehome_dst,ignore.case=TRUE)] <- 2
+x$indexcasehome_dst[grepl("^rif s",x$indexcasehome_dst,ignore.case=TRUE)] <- 2
 x$indexcasehome_dst[grepl("rif-r", x$indexcasehome_dst, ignore.case = TRUE)]<-4
+x$indexcasehome_dst[grepl("rif r", x$indexcasehome_dst, ignore.case = TRUE)]<-4
 x$indexcasehome_dst[grepl("^un",x$indexcasehome_dst,ignore.case=TRUE)] <- 9
 x$indexcasehome_dst[grepl("^na",x$indexcasehome_dst,ignore.case=TRUE)] <- 99
 ```
@@ -686,8 +692,11 @@ x$relation_with_indexcasehome[grepl("^na", x$relation_with_indexcasehome, ignore
 x$relation_with_indexcasehome[grepl("gran", x$relation_with_indexcasehome, ignore.case=TRUE)]<-3
 x$relation_with_indexcasehome[grepl("^par", x$relation_with_indexcasehome, ignore.case=TRUE)]<-1
 x$relation_with_indexcasehome[grepl("^sib", x$relation_with_indexcasehome, ignore.case=TRUE)]<-2
-x$relation_with_indexcasehome[grepl("^aun", x$relation_with_indexcasehome, ignore.case=TRUE)]<-2
-x$relation_with_indexcasehome[grepl("^uncl", x$relation_with_indexcasehome, ignore.case=TRUE)]<-2
+x$relation_with_indexcasehome[grepl("^aun", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
+x$relation_with_indexcasehome[grepl("^uncl", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
+x$relation_with_indexcasehome[grepl("^other rel", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
+x$relation_with_indexcasehome[grepl("^child", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
+
 ```
 
 ```{r cxr date}
@@ -1084,5 +1093,5 @@ x$duration_irpt[grepl("^90", x$duration_irpt, ignore.case=TRUE)]<-1
 
 ```{r export}
 
-write.csv(x,"ZTBK_GopalpurTCV_10JULY2017_ActiveTB_clean.csv", na="")
+write.csv(x,"ZTBK_GopalpurTCV_2017AUG06_TCV_Gopur_clean.csv", na="")
 ```
