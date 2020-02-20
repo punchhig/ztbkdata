@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_GopalpurTCV_2017AUG06_TCV_Gopur_clean.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ztbkdata/ZTBK_GopalpurTCV_10JULY2017_TCV_GOPUR_clean.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -36,9 +36,6 @@ x$institute[x$institute=="STSC"]<-6
 x$institute[x$institute=="PETOEN"]<-8
 x$institute[x$institute=="PETON"]<-8
 x$institute[x$institute=="TCV_DAYSCHOOL"]<-7
-
-
-
 
 
 x$age[x$age=="NA"]<-""
@@ -76,11 +73,6 @@ x$dorm[grepl("^nan", x$dorm, ignore.case = TRUE)]<-99
 x$dorm[grepl("^ati", x$dorm, ignore.case = TRUE)]<-99
 x$dorm[grepl("^not kn", x$dorm, ignore.case = TRUE)]<-9
 x$dorm[grepl("^warden", x$dorm, ignore.case = TRUE)]<-5
-
-
-
-
-
 
 
 x$dorm[x$dorm==""]<-9
@@ -140,7 +132,6 @@ x$prev_tb[grepl("^na",x$prev_tb,ignore.case=TRUE)] <- 99
 x$prevtb_year[grepl("^na",x$prevtb_year,ignore.case=TRUE)] <-99
 x$prevtb_year[grepl("^u",x$prevtb_year,ignore.case=TRUE)] <-""
 x$prevtb_year[grepl("^not",x$prevtb_year,ignore.case=TRUE)] <-""
-x$prevtb_year[grepl("^no",x$prevtb_year,ignore.case=TRUE)] <-""
 
 
 x$prevtb_site[grepl("^na",x$prevtb_site,ignore.case=TRUE)] <-99
@@ -250,7 +241,6 @@ x$indexcasesch_count[x$indexcasesch_count=="1"]<-1
 x$indexcasesch_count[x$indexcasesch_count=="2"]<-2
 x$indexcasesch_count[x$indexcasesch_count=="3"]<-3
 x$indexcasesch_count[x$indexcasesch_count=="4"]<-3
-x$indexcasesch_count[x$indexcasesch_count=="777"]<-99
 x$indexcasesch_count[grepl("^>",x$indexcasesch_count, ignore.case=FALSE)]<-3
 x$indexcasesch_count[x$indexcasesch_count=="NA"]<-99
 x$indexcasesch_count[x$indexcasesch_count==""]<-9
@@ -329,7 +319,6 @@ x$fever_duration[grepl("^2-", x$fever_duration, ignore.case = TRUE)]<-3
 x$fever_duration[grepl("^>2-", x$fever_duration, ignore.case = TRUE)]<-3
 x$fever_duration[grepl("^na", x$fever_duration, ignore.case = TRUE)]<-99
 x$fever_duration[grepl("^nO", x$fever_duration, ignore.case = TRUE)]<-99
-x$fever_duration[grepl("^?2", x$fever_duration, ignore.case = TRUE)]<-9
 x$fever_duration[x$fever_duration==""]<-9
 
 
@@ -387,6 +376,8 @@ x$tst1_adr[grepl("^de", x$tst1_adr, ignore.case=TRUE)]<-1
 x$wheal1_size[x$wheal1_size=="NA"]<-""
 
 x$xpert1_date[x$xpert1_date=="NA"]<-""
+x$xpert1_date[x$xpert1_date=="NOT DONE"]<-""
+
 
 x$xpert1_specimen[grepl("^sput", x$xpert1_specimen, ignore.case=TRUE)]<-1
 x$xpert1_specimen[grepl("^ga", x$xpert1_specimen, ignore.case=TRUE)]<-2
@@ -394,8 +385,8 @@ x$xpert1_specimen[grepl("^pus", x$xpert1_specimen, ignore.case=TRUE)]<-3
 x$xpert1_specimen[grepl("^pleu", x$xpert1_specimen, ignore.case=TRUE)]<-4
 x$xpert1_specimen[grepl("^uri", x$xpert1_specimen, ignore.case=TRUE)]<-5
 x$xpert1_specimen[grepl("^csf", x$xpert1_specimen, ignore.case=TRUE)]<-6
+x$xpert1_specimen[grepl("^not de", x$xpert1_specimen, ignore.case=TRUE)]<-99
 x$xpert1_specimen[grepl("^na", x$xpert1_specimen, ignore.case=TRUE)]<-99
-x$xpert1_specimen[grepl("^no", x$xpert1_specimen, ignore.case=TRUE)]<-99
 
 x$xpert1_result[grepl("^pos", x$xpert1_result, ignore.case=TRUE)]<-1
 x$xpert1_result[grepl("^ det", x$xpert1_result, ignore.case=TRUE)]<-1
@@ -419,7 +410,6 @@ x$xpert1_rif[grepl("^sen", x$xpert1_rif, ignore.case=TRUE)]<-0
 x$xpert1_rif[grepl("^rif-sen", x$xpert1_rif, ignore.case=TRUE)]<-0
 x$xpert1_rif[grepl("^rif sen", x$xpert1_rif, ignore.case=TRUE)]<-0
 x$xpert1_rif[grepl("^res", x$xpert1_rif, ignore.case=TRUE)]<-1
-x$xpert1_rif[grepl("^rif res", x$xpert1_rif, ignore.case=TRUE)]<-1
 x$xpert1_rif[grepl("^indet", x$xpert1_rif, ignore.case=TRUE)]<-2
 x$xpert1_rif[grepl("^na", x$xpert1_rif, ignore.case=TRUE)]<-99
 x$xpert1_rif[grepl("^not", x$xpert1_rif, ignore.case=TRUE)]<-99
@@ -485,8 +475,10 @@ x$main_database_demographics_complete<-2
 x$prevtb_dst[grepl("^no", x$prevtb_dst, ignore.case=TRUE)]<-0
 x$prevtb_dst[grepl("^yes", x$prevtb_dst, ignore.case=TRUE)]<-1
 x$prevtb_dst[grepl("^rif-se", x$prevtb_dst, ignore.case = TRUE)]<-2
+x$prevtb_dst[grepl("^rif se", x$prevtb_dst, ignore.case = TRUE)]<-2
 x$prevtb_dst[grepl("^sens", x$prevtb_dst, ignore.case = TRUE)]<-1
-x$prevtb_dst[grepl("rif-r", x$prevtb_dst, ignore.case = TRUE)]<-4
+x$prevtb_dst[grepl("^rif-r", x$prevtb_dst, ignore.case = TRUE)]<-4
+x$prevtb_dst[grepl("^rif r", x$prevtb_dst, ignore.case = TRUE)]<-4
 x$prevtb_dst[grepl("^na", x$prevtb_dst, ignore.case=TRUE)]<-99
 x$prevtb_dst[grepl("^unk", x$prevtb_dst, ignore.case=TRUE)]<-9
 x$prevtb_dst[grepl("^dst-unk", x$prevtb_dst, ignore.case=TRUE)]<-9
@@ -536,9 +528,10 @@ x$indexcasesch_sputumstatus[grepl("^neg",x$indexcasesch_sputumstatus,ignore.case
 x$indexcasesch_sputumstatus[grepl("^pos",x$indexcasesch_sputumstatus,ignore.case=T)] <- 1
 x$indexcasesch_sputumstatus[grepl("^not",x$indexcasesch_sputumstatus,ignore.case=T)] <- 2
 x$indexcasesch_sputumstatus[grepl("^rif-s",x$indexcasesch_sputumstatus,ignore.case=T)] <-3
+x$indexcasesch_sputumstatus[grepl("^rif s",x$indexcasesch_sputumstatus,ignore.case=T)] <-3
 x$indexcasesch_sputumstatus[grepl("^rif-r",x$indexcasesch_sputumstatus,ignore.case=T)] <- 4
+x$indexcasesch_sputumstatus[grepl("^rif r",x$indexcasesch_sputumstatus,ignore.case=T)] <- 4
 x$indexcasesch_sputumstatus[grepl("^unk",x$indexcasesch_sputumstatus,ignore.case=T)] <- 9
-x$indexcasesch_sputumstatus[grepl("^r",x$indexcasesch_sputumstatus,ignore.case=T)] <- 9
 x$indexcasesch_sputumstatus[grepl("^na",x$indexcasesch_sputumstatus,ignore.case=T)] <- 99
 ```
 
@@ -549,6 +542,7 @@ x$indexcasesch_dst[grepl("^yes",x$indexcasesch_dst,ignore.case=T)] <- 1
 x$indexcasesch_dst[grepl("^pos",x$indexcasesch_dst,ignore.case=T)] <- 1
 x$indexcasesch_dst[grepl("^rif-se",x$indexcasesch_dst,ignore.case=T)] <- 2
 x$indexcasesch_dst[grepl("^rif-re",x$indexcasesch_dst,ignore.case=T)] <- 4
+x$indexcasesch_dst[grepl("^rif re",x$indexcasesch_dst,ignore.case=T)] <- 4
 x$indexcasesch_dst[grepl("^rif se",x$indexcasesch_dst,ignore.case=T)] <- 2
 x$indexcasesch_dst[grepl("^unk",x$indexcasesch_dst,ignore.case=T)] <- 9
 x$indexcasesch_dst[grepl("^na",x$indexcasesch_dst,ignore.case=T)] <- 99
@@ -560,17 +554,13 @@ x$indexcasesch_cough[grepl("^na",x$indexcasesch_cough,ignore.case=T)] <- 99
 x$indexcasesch_cough[grepl("^no",x$indexcasesch_cough,ignore.case=T)] <- 0
 x$indexcasesch_cough[grepl("^yes",x$indexcasesch_cough,ignore.case=T)] <- 1
 
-x$indexcasesch_cough[x$indexcasesch_cough=="NA"]<-99
-x$indexcasesch_cough[x$indexcasesch_cough=="NO"]<-0
-x$indexcasesch_cough[x$indexcasesch_cough=="YES"]<-1
-x$indexcasesch_cough[x$indexcasesch_cough=="NN"]<-9
 
 ```
 
 ```{r Does the patient share a room with the school index case?}
 
 x$sharedroom_with_indexcasesch[x$sharedroom_with_indexcasesch=="NA"]<-99
-x$sharedroom_with_indexcasesch[grepl("^n", x$sharedroom_with_indexcasesch, ignore.case = TRUE)]<-0
+x$sharedroom_with_indexcasesch[grepl("^no", x$sharedroom_with_indexcasesch, ignore.case = TRUE)]<-0
 x$sharedroom_with_indexcasesch[grepl("^y", x$sharedroom_with_indexcasesch, ignore.case = TRUE)]<-1
 x$sharedroom_with_indexcasesch[grepl("^na", x$sharedroom_with_indexcasesch, ignore.case = TRUE)]<-99
 ```
@@ -661,7 +651,6 @@ x$indexcasehome_dst[grepl("^y",x$indexcasehome_dst,ignore.case=TRUE)] <- 1
 x$indexcasehome_dst[grepl("^rif-s",x$indexcasehome_dst,ignore.case=TRUE)] <- 2
 x$indexcasehome_dst[grepl("^rif s",x$indexcasehome_dst,ignore.case=TRUE)] <- 2
 x$indexcasehome_dst[grepl("rif-r", x$indexcasehome_dst, ignore.case = TRUE)]<-4
-x$indexcasehome_dst[grepl("rif r", x$indexcasehome_dst, ignore.case = TRUE)]<-4
 x$indexcasehome_dst[grepl("^un",x$indexcasehome_dst,ignore.case=TRUE)] <- 9
 x$indexcasehome_dst[grepl("^na",x$indexcasehome_dst,ignore.case=TRUE)] <- 99
 ```
@@ -692,11 +681,8 @@ x$relation_with_indexcasehome[grepl("^na", x$relation_with_indexcasehome, ignore
 x$relation_with_indexcasehome[grepl("gran", x$relation_with_indexcasehome, ignore.case=TRUE)]<-3
 x$relation_with_indexcasehome[grepl("^par", x$relation_with_indexcasehome, ignore.case=TRUE)]<-1
 x$relation_with_indexcasehome[grepl("^sib", x$relation_with_indexcasehome, ignore.case=TRUE)]<-2
-x$relation_with_indexcasehome[grepl("^aun", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
-x$relation_with_indexcasehome[grepl("^uncl", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
-x$relation_with_indexcasehome[grepl("^other rel", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
-x$relation_with_indexcasehome[grepl("^child", x$relation_with_indexcasehome, ignore.case=TRUE)]<-4
-
+x$relation_with_indexcasehome[grepl("^aun", x$relation_with_indexcasehome, ignore.case=TRUE)]<-2
+x$relation_with_indexcasehome[grepl("^uncl", x$relation_with_indexcasehome, ignore.case=TRUE)]<-2
 ```
 
 ```{r cxr date}
@@ -742,6 +728,7 @@ x$relation_with_indexcasehome[x$relation_with_indexcasehome=="RELATIVE"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="UNCLE'S FRIEND"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="FRIEND"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="HOME-STUDENT"]<-4
+x$relation_with_indexcasehome[x$relation_with_indexcasehome=="STEP FATHER"]<-4
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="NA"]<-99
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="PARENT"]<-1
 x$relation_with_indexcasehome[x$relation_with_indexcasehome=="SIBLING"]<-2
@@ -1093,5 +1080,5 @@ x$duration_irpt[grepl("^90", x$duration_irpt, ignore.case=TRUE)]<-1
 
 ```{r export}
 
-write.csv(x,"ZTBK_GopalpurTCV_2017AUG06_TCV_Gopur_clean.csv", na="")
+write.csv(x,"ZTBK_GopalpurTCV_10JULY2017_TCV_GOPUR_clean.csv", na="")
 ```
