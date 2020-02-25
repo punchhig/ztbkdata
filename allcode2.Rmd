@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_PETOEN_2018FEB27_PHARM_PRES1.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_STCV_2017SEP25_PHARM_PRES.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -1047,11 +1047,10 @@ x$prevther_irpt[grepl("^not rec", x$prevther_irpt, ignore.case = TRUE)]<-2
 x$prevther_irpt[grepl("^unk", x$prevther_irpt, ignore.case = TRUE)]<-9
 x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
-x$duration_irpt[grepl("^90", x$duration_irpt, ignore.case=TRUE)]<-1
 
 ```
 
 ```{r export}
 
-write.csv(x,"ZTBK_PETOEN_2018FEB27_PHARM_PRES1_clean.csv", na="")
+write.csv(x,"ZTBK_STCV_2017SEP25_PHARM_PRES1_clean.csv", na="")
 ```
