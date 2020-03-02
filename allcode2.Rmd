@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_STCV_2017SEP25_PHARM_PRES.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_GopalpurTCV_2018FEB27_TST_FU.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -1040,6 +1040,81 @@ x$active_tb_tbinvestigation_complete<-2
 x$tst_reactive_treatment_complete<-2
 ```
 
+```{r follow up}
+x$cough_fu[grepl("^no", x$cough_fu, ignore.case=TRUE)]<-0
+x$cough_fu[grepl("^yes", x$cough_fu, ignore.case=TRUE)]<-1
+x$cough_fu[grepl("^un", x$cough_fu, ignore.case=TRUE)]<-9
+x$cough_fu[grepl("^na", x$cough_fu, ignore.case=TRUE)]<-99
+
+x$coughduration_wks_fu[grepl("^l", x$coughduration_wks_fu, ignore.case=TRUE)]<-1
+x$coughduration_wks_fu[grepl("^<1", x$coughduration_wks_fu, ignore.case=TRUE)]<-1
+x$coughduration_wks_fu[grepl("^o", x$coughduration_wks_fu, ignore.case=TRUE)]<-2
+x$coughduration_wks_fu[grepl("^1-", x$coughduration_wks_fu, ignore.case=TRUE)]<-2
+x$coughduration_wks_fu[grepl("^t", x$coughduration_wks_fu, ignore.case=TRUE)]<-3
+x$coughduration_wks_fu[grepl("^2-", x$coughduration_wks_fu, ignore.case=TRUE)]<-3
+x$coughduration_wks_fu[grepl("^g", x$coughduration_wks_fu, ignore.case=TRUE)]<-4
+x$coughduration_wks_fu[grepl("^3-", x$coughduration_wks_fu, ignore.case=TRUE)]<-4
+x$coughduration_wks_fu[grepl("4", x$coughduration_wks_fu, ignore.case=TRUE)]<-4
+x$coughduration_wks_fu[grepl("^na", x$coughduration_wks_fu, ignore.case=TRUE)]<-99
+
+x$productive_cough_fu[grepl("^no",x$productive_cough_fu, ignore.case=TRUE)] <- 0
+x$productive_cough_fu[grepl("^yes",x$productive_cough_fu,ignore.case=TRUE)] <- 1
+x$productive_cough_fu[x$productive_cough_fu==""]<-9
+x$productive_cough_fu[grepl("^na",x$productive_cough_fu,ignore.case=TRUE)] <- 99
+
+x$blood_sputum_fu[grepl("^no",x$blood_sputum_fu, ignore.case=TRUE)] <- 0
+x$blood_sputum_fu[grepl("^yes",x$blood_sputum_fu,ignore.case=TRUE)] <- 1
+x$blood_sputum_fu[x$blood_sputum_fu==""]<-9
+x$blood_sputum_fu[grepl("^na",x$blood_sputum_fu,ignore.case=TRUE)] <- 99
+x$blood_sputum_fu[grepl("^an",x$blood_sputum_fu,ignore.case=TRUE)] <- 99
+x$blood_sputum_fu[x$blood_sputum_fu=="N"]<-9
+
+
+x$fever_fu[grepl("^no",x$fever_fu, ignore.case=TRUE)] <- 0
+x$fever_fu[grepl("^yes",x$fever_fu,ignore.case=TRUE)] <- 1
+x$fever_fu[x$fever_fu==""]<-9
+x$fever_fu[grepl("^na",x$fever_fu,ignore.case=TRUE)] <- 99
+
+x$fever_duration_fu[grepl("^l", x$fever_duration_fu, ignore.case = TRUE)]<-1
+x$fever_duration_fu[grepl("^<1", x$fever_duration_fu, ignore.case = TRUE)]<-1
+x$fever_duration_fu[grepl("^o", x$fever_duration_fu, ignore.case = TRUE)]<-2
+x$fever_duration_fu[grepl("^1-", x$fever_duration_fu, ignore.case = TRUE)]<-2
+x$fever_duration_fu[grepl("^g", x$fever_duration_fu, ignore.case = TRUE)]<-3
+x$fever_duration_fu[grepl("^2-", x$fever_duration_fu, ignore.case = TRUE)]<-3
+x$fever_duration_fu[grepl("^>2-", x$fever_duration_fu, ignore.case = TRUE)]<-3
+x$fever_duration_fu[grepl("^na", x$fever_duration_fu, ignore.case = TRUE)]<-99
+x$fever_duration_fu[grepl("^nO", x$fever_duration_fu, ignore.case = TRUE)]<-99
+x$fever_duration_fu[x$fever_duration_fu==""]<-NA
+###code ?2 as unknown
+
+
+x$nightsweats_2wks_fu[grepl("^no",x$nightsweats_2wks_fu, ignore.case=TRUE)] <- 0
+x$nightsweats_2wks_fu[grepl("^ye",x$nightsweats_2wks_fu,ignore.case=TRUE)] <- 1
+x$nightsweats_2wks_fu[x$nightsweats_2wks_fu==""]<-9
+x$nightsweats_2wks_fu[grepl("^na",x$nightsweats_2wks_fu,ignore.case=TRUE)] <- 99
+
+x$wtloss_1month_fu[grepl("^no",x$wtloss_1month_fu, ignore.case=TRUE)] <- 0
+x$wtloss_1month_fu[grepl("no",x$wtloss_1month_fu, ignore.case=TRUE)] <- 0
+x$wtloss_1month_fu[grepl("^yes",x$wtloss_1month_fu,ignore.case=TRUE)] <- 1
+x$wtloss_1month_fu[grepl("yes",x$wtloss_1month_fu,ignore.case=TRUE)] <- 1
+x$wtloss_1month_fu[x$wtloss_1month_fu==""]<-9
+x$wtloss_1month_fu[grepl("^na",x$wtloss_1month_fu,ignore.case=TRUE)] <- 99
+
+x$fatigue_last2wks_fu[grepl("^no",x$fatigue_last2wks_fu, ignore.case=TRUE)] <- 0
+x$fatigue_last2wks_fu[grepl("^yes",x$fatigue_last2wks_fu,ignore.case=TRUE)] <- 1
+x$fatigue_last2wks_fu[x$fatigue_last2wks_fu==""]<-9
+x$fatigue_last2wks_fu[grepl("^na",x$fatigue_last2wks_fu,ignore.case=TRUE)] <- 99
+
+x$tb_diagnosis_fu[grepl("^no", x$tb_diagnosis_fu, ignore.case = TRUE)]<-0
+x$tb_diagnosis_fu[grepl("^yes", x$tb_diagnosis_fu, ignore.case = TRUE)]<-1
+x$tb_diagnosis_fu[grepl("^sus", x$tb_diagnosis_fu, ignore.case = TRUE)]<-2
+x$tb_diagnosis_fu[grepl("^na", x$tb_diagnosis_fu, ignore.case = TRUE)]<-99
+x$tb_diagnosis_fu[x$tb_diagnosis_fu==""]<-NA
+                    
+                    
+```
+
+
 ```{r phar}
 x$prevther_irpt[grepl("^ref", x$prevther_irpt, ignore.case = TRUE)]<-0
 x$prevther_irpt[grepl("^con", x$prevther_irpt, ignore.case = TRUE)]<-1
@@ -1052,5 +1127,5 @@ x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
 ```{r export}
 
-write.csv(x,"ZTBK_STCV_2017SEP25_PHARM_PRES1_clean.csv", na="")
+write.csv(x,"ZTBK_STCV_2018MAR07_PHAR_PRES_clean.csv", na="")
 ```
