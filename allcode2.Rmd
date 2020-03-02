@@ -415,6 +415,28 @@ x$xpert1_rif[grepl("^indet", x$xpert1_rif, ignore.case=TRUE)]<-2
 x$xpert1_rif[grepl("^na", x$xpert1_rif, ignore.case=TRUE)]<-99
 x$xpert1_rif[grepl("^not", x$xpert1_rif, ignore.case=TRUE)]<-99
 
+x$tst2_done[grepl("^not", x$tst2_done, ignore.case=TRUE)]<-0
+x$tst2_done[grepl("^done", x$tst2_done, ignore.case=TRUE)]<-1
+x$tst2_done[x$tst2_done==""]<-99
+
+
+x$tst2_result[grepl("^neg", x$tst2_result, ignore.case=TRUE)]<-0
+x$tst2_result[grepl("^pos", x$tst2_result, ignore.case=TRUE)]<-1
+x$tst2_result[grepl("^not", x$tst2_result, ignore.case=TRUE)]<-2
+x$tst2_result[grepl("^unk", x$tst2_result, ignore.case=TRUE)]<-9
+x$tst2_result[grepl("^na", x$tst2_result, ignore.case=TRUE)]<-99
+x$tst2_result[x$tst2_result==""]<-9
+
+x$tst2_date_read[x$tst2_date_read=="NA"]<-""
+x$tst2_date[x$tst2_date=="NA"]<-""
+
+x$tst2_adr[grepl("^no", x$tst2_adr, ignore.case=TRUE)]<-0
+x$tst2_adr[grepl("^yes", x$tst2_adr, ignore.case=TRUE)]<-1
+x$tst2_adr[grepl("^done", x$tst2_adr, ignore.case=TRUE)]<-9
+
+
+x$tst2_adr[grepl("^de", x$tst2_adr, ignore.case=TRUE)]<-1
+
 x$xpert2_date[x$xpert2_date=="NA"]<-""
 
 x$xpert2_specimen[grepl("^sput", x$xpert2_specimen, ignore.case=TRUE)]<-1
@@ -436,12 +458,12 @@ x$xpert2_result[grepl("^norm", x$xpert2_result, ignore.case=TRUE)]<-3
 x$xpert2_result[grepl("^na", x$xpert2_result, ignore.case=TRUE)]<-99
 
 
-x$xpert2_mtb[grepl("^vl", x$xpert2_result, ignore.case=TRUE)]<-0
-x$xpert2_mtb[grepl("^low", x$xpert2_result, ignore.case=TRUE)]<-1
+x$xpert2_mtb[grepl("^vl", x$xpert2_mtb, ignore.case=TRUE)]<-0
+x$xpert2_mtb[grepl("^low", x$xpert2_mtb, ignore.case=TRUE)]<-1
 x$xpert2_mtb[grepl("^very low", x$xpert2_mtb, ignore.case=TRUE)]<-1
-x$xpert2_mtb[grepl("^med", x$xpert2_result, ignore.case=TRUE)]<-2
-x$xpert2_mtb[grepl("^hi", x$xpert2_result, ignore.case=TRUE)]<-3
-x$xpert2_mtb[grepl("^na", x$xpert2_result, ignore.case=TRUE)]<-99
+x$xpert2_mtb[grepl("^med", x$xpert2_mtb, ignore.case=TRUE)]<-2
+x$xpert2_mtb[grepl("^hi", x$xpert2_mtb, ignore.case=TRUE)]<-3
+x$xpert2_mtb[grepl("^na", x$xpert2_mtb, ignore.case=TRUE)]<-99
 
 x$xpert2_rif[grepl("^sen", x$xpert2_rif, ignore.case=TRUE)]<-0
 x$xpert2_rif[grepl("^res", x$xpert2_rif, ignore.case=TRUE)]<-1
@@ -1127,5 +1149,5 @@ x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
 ```{r export}
 
-write.csv(x,"ZTBK_STCV_2018MAR07_PHAR_PRES_clean.csv", na="")
+write.csv(x,"ZTBK_ZTBK_GopalpurTCV_2018FEB27_TST_FU_clean.csv", na="")
 ```
