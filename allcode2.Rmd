@@ -1133,7 +1133,98 @@ x$tb_diagnosis_fu[grepl("^sus", x$tb_diagnosis_fu, ignore.case = TRUE)]<-2
 x$tb_diagnosis_fu[grepl("^na", x$tb_diagnosis_fu, ignore.case = TRUE)]<-99
 x$tb_diagnosis_fu[x$tb_diagnosis_fu==""]<-NA
                     
-                    
+```
+
+``` {r tst fu}
+x$prev_ther_fu[grepl("^rec", x$prev_ther_fu, ignore.case=TRUE)]<-1
+x$prev_ther_fu[grepl("^not recei", x$prev_ther_fu, ignore.case=TRUE)]<-2
+x$prev_ther_fu[grepl("^con", x$prev_ther_fu, ignore.case=TRUE)]<-3
+x$prev_ther_fu[grepl("^refu", x$prev_ther_fu, ignore.case=TRUE)]<-4
+x$prev_ther_fu[grepl("^not reco", x$prev_ther_fu, ignore.case=TRUE)]<-5
+x$prev_ther_fu[grepl("^acti", x$prev_ther_fu, ignore.case=TRUE)]<-6
+x$prev_ther_fu[grepl("^other", x$prev_ther_fu, ignore.case=TRUE)]<-7
+
+x$prev_ther_reg_fu[grepl("^4r", x$prev_ther_reg_fu, ignore.case=TRUE)]<-1
+x$prev_ther_reg_fu[grepl("^3hr", x$prev_ther_reg_fu, ignore.case=TRUE)]<-2
+x$prev_ther_reg_fu[grepl("^6h", x$prev_ther_reg_fu, ignore.case=TRUE)]<-3
+x$prev_ther_reg_fu[grepl("^3hp", x$prev_ther_reg_fu, ignore.case=TRUE)]<-4
+x$prev_ther_reg_fu[grepl("^irpt", x$prev_ther_reg_fu, ignore.case=TRUE)]<-5
+x$prev_ther_reg_fu[grepl("^unkn", x$prev_ther_reg_fu, ignore.case=TRUE)]<-9
+x$prev_ther_reg_fu[grepl("^na", x$prev_ther_reg_fu, ignore.case=TRUE)]<-99
+
+x$culprit_drug_fu[grepl("NA",x$culprit_drug_fu ,ignore.case=TRUE)]<-99
+x$culprit_drug_fu[grepl("Rif",x$culprit_drug_fu,ignore.case=TRUE)]<-1
+x$culprit_drug_fu[grepl("^I",x$culprit_drug_fu,ignore.case=TRUE)]<-2
+x$culprit_drug_fu[grepl("Rif-Inh",x$culprit_drug_fu,ignore.case=TRUE)]<-3
+
+x$prevther_startdate_fu[grepl("na", x$prevther_startdate_fu, ignore.case = TRUE)]<-""
+
+x$typeofadr_fu[x$typeofadr_fu=="NA"]<-""
+
+x$totalbil_1_fu[grepl("NA",x$totalbil_1_fu,ignore.case=TRUE)]<-""
+
+x$directbil_1_fu[grepl("NA",x$directbil_1_fu,ignore.case=TRUE)]<-""
+
+x$sgpt_1_fu[grepl("NA",x$sgpt_1_fu,ignore.case=TRUE)]<-""
+x$sgot_1_fu[grepl("NA",x$sgot_1_fu,ignore.case=TRUE)]<-""
+
+x$totalbil_2_fu[grepl("NA",x$totalbil_2_fu,ignore.case=TRUE)]<-""
+
+x$directbil_2_fu[grepl("NA", x$directbil_2_fu,ignore.case=TRUE)]<-""
+
+x$sgpt_2_fu[grepl("NA",x$sgpt_2_fu,ignore.case=TRUE)]<-""
+x$sgot_2_fu[grepl( "NA",x$sgot_2_fu,ignore.case=TRUE)]<-""
+
+x$totalbil_3_fu[grepl("NA",x$totalbil_3_fu,ignore.case=TRUE)]<-""
+
+x$directbil_3_fu[grepl("NA",x$directbil_3_fu,ignore.case=TRUE)]<-""
+
+x$sgpt_3_fu[grepl("NA",x$sgpt_3_fu,ignore.case=TRUE)]<-""
+x$sgot_3_fu[grepl("NA",x$sgot_3_fu,ignore.case=TRUE)]<-""
+
+x$prevtherapy_held_fu[grepl("NA",x$prevtherapy_held_fu,ignore.case=TRUE)]<-99
+x$prevtherapy_held_fu[grepl("^N",x$prevtherapy_held_fu,ignore.case=TRUE)]<-0
+x$prevtherapy_held_fu[grepl("^Y",x$prevtherapy_held_fu,ignore.case=TRUE)]<-1
+
+x$date_prevther_held_fu[x$date_prevther_held_fu=="NA"]<-""
+x$date_prevther_restarted_fu[x$date_prevther_restarted_fu=="NA"]<-""
+
+x$prev_therapy_revised_fu[grepl("NA",x$prev_therapy_revised_fu,ignore.case=TRUE)]<-99
+x$prev_therapy_revised_fu[grepl("^N",x$prev_therapy_revised_fu,ignore.case=TRUE)]<-0
+x$prev_therapy_revised_fu[grepl("^Y",x$prev_therapy_revised_fu,ignore.case=TRUE)]<-1
+
+x$revised_prevther_reg_fu[grepl("NA",x$revised_prevther_reg_fu,ignore.case=TRUE)]<-""
+x$revised_prevther_reg_fu[grepl("^4",x$revised_prevther_reg_fu,ignore.case=TRUE)]<-1
+x$revised_prevther_reg_fu[grepl("^3HR",x$revised_prevther_reg_fu,ignore.case=TRUE)]<-2
+x$revised_prevther_reg_fu[grepl("^6",x$revised_prevther_reg_fu,ignore.case=TRUE)]<-3
+x$revised_prevther_reg_fu[grepl("^3HP",x$revised_prevther_reg_fu,ignore.case=TRUE)]<-4
+x$revised_prevther_reg_fu[!grepl("^4|^3HR|^6|^3HP|^NA", x$revised_prevther_reg_fu,ignore.case=TRUE)]<- ""
+
+x$prevther_outcome_fu[grepl("NA",x$prevther_outcome_fu,ignore.case=TRUE)]<-""
+x$prevther_outcome_fu[grepl("^COM",x$prevther_outcome_fu,ignore.case=TRUE)]<-1
+x$prevther_outcome_fu[grepl("^L",x$prevther_outcome_fu,ignore.case=TRUE)]<-2
+x$prevther_outcome_fu[grepl("^A",x$prevther_outcome_fu,ignore.case=TRUE)]<-3
+x$prevther_outcome_fu[grepl("TB",x$prevther_outcome_fu,ignore.case=TRUE)]<-3
+
+
+x$if_other_specify_fu[x$if_other_specify_fu=="NA"]<-""
+
+x$prevther_stopped_premature_fu[grepl("NA",x$prevther_stopped_premature_fu,ignore.case=TRUE)]<-99
+x$prevther_stopped_premature_fu[grepl("^N",x$prevther_stopped_premature_fu,ignore.case=TRUE)]<-0
+x$prevther_stopped_premature_fu[grepl("^Y",x$prevther_stopped_premature_fu,ignore.case=TRUE)]<-1
+
+x$prevther_stopped_reason_fu[grepl("NA",x$prevther_stopped_reason_fu,ignore.case=TRUE)]<-99
+x$prevther_stopped_reason_fu[grepl("^H",x$prevther_stopped_reason_fu,ignore.case=TRUE)]<- 1
+x$prevther_stopped_reason_fu[grepl("^other tox",x$prevther_stopped_reason_fu,ignore.case=TRUE)]<- 2
+x$prevther_stopped_reason_fu[grepl("^discont",x$prevther_stopped_reason_fu,ignore.case=TRUE)]<- 3
+
+
+x$tst_reactive_treatment_complete[x$tst_reactive_treatment_complete=="INCOMPLETE"]<-0
+x$tst_reactive_treatment_complete[x$tst_reactive_treatment_complete=="UNVERIFIED"]<-1
+x$tst_reactive_treatment_complete[x$tst_reactive_treatment_complete=="COMPLETE"]<-2
+
+x$prevther_startdate_fu[grepl("NA",x$prevther_startdate_fu,ignore.case=TRUE)]<-""
+
 ```
 
 
