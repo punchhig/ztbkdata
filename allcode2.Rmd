@@ -759,6 +759,34 @@ x$sch_mon_prev1yr[x$sch_mon_prev1yr=="GTCV"]<-3
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="LTCV"]<-1
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="STS POANTA"]<-10
 
+x$class_mon_prev1yr[grepl("^na", x$class_mon_prev1yr, ignore.case = TRUE)]<-99
+
+x$dorm_mon_prev1yr[grepl("^k",x$dorm_mon_prev1yr_mon_prev1yr,ignore.case=TRUE)] <-99
+x$dorm_mon_prev1yr[grepl("^reti",x$dorm_mon_prev1yr,ignore.case=TRUE)] <-99
+x$dorm_mon_prev1yr[grepl("^h-",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 1
+x$dorm_mon_prev1yr[grepl("^h",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 1
+x$dorm_mon_prev1yr[grepl("^G",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 3
+x$dorm_mon_prev1yr[grepl("^B",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 2
+x$dorm_mon_prev1yr[grepl("^sta", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-5
+x$dorm_mon_prev1yr[grepl("^offi", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^coo", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^ele", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^nur", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^dri", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^dir", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^da", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-4
+x$dorm_mon_prev1yr[grepl("^spe", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^peo", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^oth", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^yu", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^nan", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^ati", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1yr[grepl("^not kn", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-9
+x$dorm_mon_prev1yr[grepl("^warden", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-5
+
+
+                      
+
 x$doh_index_no[x$doh_index_no=="NA"]<-NA
 
 x$patient_type[grepl("^re", x$patient_type, ignore.case = TRUE)]<-2
