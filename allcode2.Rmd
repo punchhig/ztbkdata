@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_GopalpurTCV_2018FEB27_TST_FU.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_STCV_2018MAR07_ACTIVE_TB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -759,31 +759,32 @@ x$sch_mon_prev1yr[x$sch_mon_prev1yr=="GTCV"]<-3
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="LTCV"]<-1
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="STS POANTA"]<-10
 
-x$class_mon_prev1yr[grepl("^na", x$class_mon_prev1yr, ignore.case = TRUE)]<-99
+x$class_mon_prev1year[grepl("^na", x$class_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^na", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
 
-x$dorm_mon_prev1yr[grepl("^k",x$dorm_mon_prev1yr_mon_prev1yr,ignore.case=TRUE)] <-99
-x$dorm_mon_prev1yr[grepl("^reti",x$dorm_mon_prev1yr,ignore.case=TRUE)] <-99
-x$dorm_mon_prev1yr[grepl("^h-",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 1
-x$dorm_mon_prev1yr[grepl("^h",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 1
-x$dorm_mon_prev1yr[grepl("^G",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 3
-x$dorm_mon_prev1yr[grepl("^B",x$dorm_mon_prev1yr,ignore.case=TRUE)] <- 2
-x$dorm_mon_prev1yr[grepl("^sta", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-5
-x$dorm_mon_prev1yr[grepl("^offi", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^coo", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^ele", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^nur", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^dri", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^dir", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^da", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-4
-x$dorm_mon_prev1yr[grepl("^spe", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^peo", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^oth", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^yu", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^nan", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^ati", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-99
-x$dorm_mon_prev1yr[grepl("^not kn", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-9
-x$dorm_mon_prev1yr[grepl("^warden", x$dorm_mon_prev1yr, ignore.case = TRUE)]<-5
 
+x$dorm_mon_prev1year[grepl("^k",x$dorm_mon_prev1year,ignore.case=TRUE)] <-99
+x$dorm_mon_prev1year[grepl("^reti",x$dorm_mon_prev1year,ignore.case=TRUE)] <-99
+x$dorm_mon_prev1year[grepl("^h-",x$dorm_mon_prev1year,ignore.case=TRUE)] <- 1
+x$dorm_mon_prev1year[grepl("^h",x$dorm_mon_prev1year,ignore.case=TRUE)] <- 1
+x$dorm_mon_prev1year[grepl("^G",x$dorm_mon_prev1year,ignore.case=TRUE)] <- 3
+x$dorm_mon_prev1year[grepl("^B",x$dorm_mon_prev1year,ignore.case=TRUE)] <- 2
+x$dorm_mon_prev1year[grepl("^sta", x$dorm_mon_prev1year, ignore.case = TRUE)]<-5
+x$dorm_mon_prev1year[grepl("^offi", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^coo", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^ele", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^nur", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^dri", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^dir", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^da", x$dorm_mon_prev1year, ignore.case = TRUE)]<-4
+x$dorm_mon_prev1year[grepl("^spe", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^peo", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^oth", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^yu", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^nan", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^ati", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
+x$dorm_mon_prev1year[grepl("^not kn", x$dorm_mon_prev1year, ignore.case = TRUE)]<-9
+x$dorm_mon_prev1year[grepl("^warden", x$dorm_mon_prev1year, ignore.case = TRUE)]<-5
 
                       
 
@@ -815,19 +816,22 @@ x$place_rx_start[x$place_rx_start=="NA"]<-""
 x$date_rx_start[x$date_rx_start=="NA"]<-""
 
 x$diagnostic_smear[grepl("^NA",x$diagnostic_smear,ignore.case=TRUE)] <- ""
+x$diagnostic_smear[grepl("^neg",x$diagnostic_smear,ignore.case=TRUE)] <-0
 x$diagnostic_smear[grepl("^UNKNO",x$diagnostic_smear,ignore.case=TRUE)] <- 9
-x$diagnostic_smear[grepl("^P",x$diagnostic_smear,ignore.case=TRUE)] <- 1
+x$diagnostic_smear[grepl("^pos",x$diagnostic_smear,ignore.case=TRUE)] <- 1
 x$diagnostic_smear[grepl("^NOT D",x$diagnostic_smear,ignore.case=TRUE)] <- 2
 x$diagnostic_smear[grepl("^NOT K",x$diagnostic_smear,ignore.case=TRUE)] <- 9
 x$diagnostic_smear[x$diagnostic_smear=="SCANTY"]<-3
 
-x$hiv[grepl("^NA",x$hiv,ignore.case=TRUE)] <- ""
+x$hiv[grepl("^NA",x$hiv,ignore.case=TRUE)] <- 99
+x$hiv[grepl("no",x$hiv,ignore.case=TRUE)] <- 99
 x$hiv[grepl("^NEG",x$hiv,ignore.case=TRUE)] <- 0
 x$hiv[grepl("^POS",x$hiv,ignore.case=TRUE)] <- 1
 x$hiv[grepl("^NOT D",x$hiv,ignore.case=TRUE)] <- 2
 x$hiv[grepl("^UNK",x$hiv,ignore.case=TRUE)] <- 9
 
 x$hep_b[grepl("^NA",x$hep_b,ignore.case=TRUE)] <- ""
+x$hep_b[grepl("no",x$hep_b,ignore.case=TRUE)] <- 0
 x$hep_b[grepl("^NEG",x$hep_b,ignore.case=TRUE)] <- 0
 x$hep_b[grepl("^POS",x$hep_b,ignore.case=TRUE)] <- 1
 x$hep_b[grepl("^NOT D",x$hep_b,ignore.case=TRUE)] <- 2
@@ -922,6 +926,7 @@ x$smear_conv[x$smear_conv=="HALF-MONTH"]<-1
 x$smear_conv[x$smear_conv=="NA"]<-99
 
 x$end_rx_smear[grepl("^NA",x$end_rx_smear,ignore.case=TRUE)] <- ""
+x$end_rx_smear[grepl("^no sp",x$end_rx_smear,ignore.case=TRUE)] <-0
 x$end_rx_smear[grepl("^UN",x$end_rx_smear,ignore.case=TRUE)] <-9
 x$end_rx_smear[grepl("^NOT",x$end_rx_smear,ignore.case=TRUE)] <- 2
 x$end_rx_smear[grepl("^NEG",x$end_rx_smear,ignore.case=TRUE)] <- 0
@@ -1268,5 +1273,5 @@ x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
 ```{r export}
 
-write.csv(x,"ZTBK_ZTBK_GopalpurTCV_2018FEB27_TST_FU_clean.csv", na="")
+write.csv(x,"ZTBK_STCV_2018MAR07_ACTIVE_TB_clean.csv", na="")
 ```
