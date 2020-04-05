@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_LowerTCV_2018FEB27_ACTIVE_TB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_MUSsoorie_2018APR18_ACTIVE_TB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -40,6 +40,7 @@ x$institute[x$institute=="STSB"]<-9
 x$institute[x$institute=="STS_POANTA"]<-10
 x$institute[x$institute=="STS_PU"]<-11
 x$institute[x$institute=="UPPER TCV"]<-2
+x$institute[x$institute=="MUSSORRIE"]<-13
 
 
 x$age[x$age=="NA"]<-""
@@ -765,6 +766,8 @@ x$sch_mon_prev1yr[x$sch_mon_prev1yr=="STSB"]<-9
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="STS POANTA"]<-10
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="STS_PU"]<-11
 x$sch_mon_prev1yr[x$sch_mon_prev1yr=="UPPER TCV"]<-2
+x$sch_mon_prev1yr[x$sch_mon_prev1yr=="MUSSOORIE"]<-13
+
 
 x$class_mon_prev1year[grepl("^na", x$class_mon_prev1year, ignore.case = TRUE)]<-99
 x$dorm_mon_prev1year[grepl("^na", x$dorm_mon_prev1year, ignore.case = TRUE)]<-99
@@ -1290,5 +1293,5 @@ x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
 ```{r export}
 
-write.csv(x,"ZTBK_LowerTCV_2018FEB27_ACTIVE_TB_clean.csv", na="")
+write.csv(x,"ZTBK_MUSsoorie_2018APR18_ACTIVE_TB_clean.csv", na="")
 ```
