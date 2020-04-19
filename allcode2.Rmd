@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/ZTBK_MUSsoorie_2018APR18_ACTIVE_TB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/DIRRU2018_ACTIVE_TB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -41,6 +41,11 @@ x$institute[x$institute=="STS_POANTA"]<-10
 x$institute[x$institute=="STS_PU"]<-11
 x$institute[x$institute=="UPPER TCV"]<-2
 x$institute[x$institute=="MUSSORRIE"]<-13
+x$institute[x$institute=="BHUMANG"]<-35
+x$institute[x$institute=="CHOKLING"]<-30
+x$institute[x$institute=="DHOZONG"]<-36
+x$institute[x$institute=="DIRRU"]<-37
+
 
 
 x$age[x$age=="NA"]<-""
@@ -52,6 +57,8 @@ x$sex[x$sex=="STAFF"]<-9
 x$sex[grepl("^na", x$sex, ignore.case = TRUE)]<-99
 
 x$class_section[x$class_section=="NA"]<-""
+
+x$roll_no[grepl("^na", x$roll_no, ignore.case = TRUE)]<-""
 
 x$dorm[!grepl("^b|^h|^g|^sta|^day",x$dorm,ignore.case=TRUE)] <-99
 x$dorm[grepl("^teac",x$dorm,ignore.case=TRUE)] <-99
@@ -1293,5 +1300,5 @@ x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
 ```{r export}
 
-write.csv(x,"ZTBK_MUSsoorie_2018APR18_ACTIVE_TB_clean.csv", na="")
+write.csv(x,"DIRRU2018_ACTIVE_TB_clean.csv", na="")
 ```
