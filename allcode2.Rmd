@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/DZONGSAR2018_ACTIVE_TB.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/NECHUNG2018_TST_REAC.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -46,7 +46,12 @@ x$institute[x$institute=="CHOKLING"]<-30
 x$institute[x$institute=="DHOZONG"]<-36
 x$institute[x$institute=="DIRRU"]<-37
 x$institute[x$institute=="DZONGSAR"]<-33
-
+x$institute[x$institute=="GADONG"]<-38
+x$institute[x$institute=="GATSELING"]<-31
+x$institute[x$institute=="GYUTOE"]<-39
+x$institute[x$institute=="KIRTI"]<-40
+x$institute[x$institute=="NAMGYAL"]<-32
+x$institute[x$institute=="NECHUNG"]<-34
 x$age[x$age=="NA"]<-""
 
 x$sex[grepl("^m", x$sex, ignore.case = TRUE)]<-1
@@ -301,7 +306,7 @@ x$coughduration_wks[grepl("^3-", x$coughduration_wks, ignore.case=TRUE)]<-4
 x$coughduration_wks[grepl("4", x$coughduration_wks, ignore.case=TRUE)]<-4
 x$coughduration_wks[grepl("^na", x$coughduration_wks, ignore.case=TRUE)]<-99
 x$coughduration_wks[x$coughduration_wks=="NA"]<-99
-x$coughduration_wks[!grepl("[0-99]", x$coughduration_wks, ignore.case=TRUE)]<- 9
+
 
 x$productive_cough[grepl("^no",x$productive_cough, ignore.case=TRUE)] <- 0
 x$productive_cough[grepl("^yes",x$productive_cough,ignore.case=TRUE)] <- 1
@@ -528,7 +533,7 @@ x$comorbidity[grepl("^htn",x$comorbidity,ignore.case=TRUE)] <- 2
 x$comorbidity[grepl("^ast",x$comorbidity,ignore.case=TRUE)] <- 4
 x$comorbidity[grepl("^unk",x$comorbidity,ignore.case=TRUE)] <- 9
 x$comorbidity[grepl("^NA",x$comorbidity,ignore.case=FALSE)] <- 99
-x$comorbidity[!grepl("^0|^1|^2|^3",x$comorbidity,ignore.case=TRUE)] <- 5
+
 
 ```
 
@@ -537,7 +542,7 @@ x$chronic_meds[grepl("^none", x$chronic_meds, ignore.case=TRUE)]<-0
 x$chronic_meds[x$chronic_meds=="NO"]<-0
 x$chronic_meds[x$chronic_meds==""]<-0
 x$chronic_meds[x$chronic_meds=="NA"]<-99
-x$chronic_meds[!grepl("^0|^99", x$chronic_meds, ignore.case=TRUE)]<- 1
+
 
 ```
 
@@ -1299,5 +1304,5 @@ x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
 ```{r export}
 
-write.csv(x,"DZONGSAR2018_ACTIVE_TB_clean.csv", na="")
+write.csv(x,"NECHUNG2018_TST_REAC_clean.csv", na="")
 ```
