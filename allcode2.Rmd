@@ -15,7 +15,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/NYINGMA2018_NYINGMA_2018.csv",stringsAsFactors = FALSE, na.strings=TRUE)
+x=read.csv("C:/Users/g_pun/Dropbox/ZeroTB/TSECHOKLING2018_TST_REAC.csv",stringsAsFactors = FALSE, na.strings=TRUE)
 
 ```
 
@@ -53,6 +53,10 @@ x$institute[x$institute=="KIRTI"]<-40
 x$institute[x$institute=="NAMGYAL"]<-32
 x$institute[x$institute=="NECHUNG"]<-34
 x$institute[x$institute=="NYINGMA_"]<-41
+x$institute[x$institute=="SHERBALING"]<-42
+x$institute[x$institute=="TASHIJONG MONASTRY"]<-24
+x$institute[x$institute=="TSECHOKLING"]<-43
+
 
 x$age[x$age=="NA"]<-""
 
@@ -1306,5 +1310,5 @@ x$prevther_irpt[grepl("^na", x$prevther_irpt, ignore.case = TRUE)]<-99
 
 ```{r export}
 
-write.csv(x,"NYINGMA2018_NYINGMA_2018_clean.csv", na="")
+write.csv(x,"TSECHOKLING2018_TST_REAC_clean.csv", na="")
 ```
